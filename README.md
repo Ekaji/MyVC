@@ -1,2 +1,9 @@
 # MyVC
-A react native app to view and catalog clothing
+
+# Deescription
+
+# Technologies
+
+# Gifs
+
+# Contribuitors
