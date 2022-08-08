@@ -1,6 +1,6 @@
 # MyVC
 
-# Deescription
+# Description
 A monolithic react native application that interact with different apis to deliver on the requirments of the app
 # Technologies
 
