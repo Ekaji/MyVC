@@ -13,7 +13,16 @@ import {
   MyVcBaseTextField,
   MyVcIconTextField,
 } from "./src/components/TextFields";
-import { H1, H3, Title } from "./src/components/Texts";
+import {
+  H1,
+  H3,
+  RegularBoldWhiteText,
+  RegularCenteredText,
+  Title,
+  UnderLinedText,
+  SmallLightGrayText,
+  TinyDarkGrayText,
+} from "./src/components/Texts";
 import { ImageSet } from "./src/config/Constant";
 export default function App() {
   const testFirebase = async () => {
@@ -57,6 +66,18 @@ export default function App() {
             placeholder={"Enter Password"}
             onTapIcon={() => console.log("tapping icon")}
           />
+          <Title content={"Forgot Password?"} />
+          <RegularCenteredText
+            content={
+              "Automate your every day warddrobe and always be ready for any event!"
+            }
+          />
+          <View style={{ backgroundColor: "black" }}>
+            <RegularBoldWhiteText content={"Sign Up"} />
+          </View>
+          <UnderLinedText content={"Sign In"} />
+          <SmallLightGrayText content={"By signing up, you agree to our"} />
+          <TinyDarkGrayText content={"Terms of Service"} />
         </View>
       </View>
     </RootSiblingParent>

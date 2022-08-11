@@ -28,7 +28,7 @@ export function MyVcBaseTextField({
         <H3
           content={headerText}
           moreStyles={{
-            color: Colors.grey700,
+            color: Colors.gray700,
             fontWeight: "bold",
             marginBottom: 8,
           }}
@@ -70,7 +70,7 @@ export function MyVcIconTextField({
         <H3
           content={headerText}
           moreStyles={{
-            color: Colors.grey700,
+            color: Colors.gray700,
             fontWeight: "bold",
             marginBottom: 8,
           }}
@@ -132,10 +132,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     borderWidth: 0.5,
-    borderColor: Colors.grey500,
+    borderColor: Colors.gray500,
   },
   basTextInputView: {
- 
     width: "100%",
   },
 });
