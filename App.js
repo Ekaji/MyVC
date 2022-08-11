@@ -1,8 +1,20 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { postTestDataToFireStore } from "./FirebaseFireStoreDB";
 import { RootSiblingParent } from "react-native-root-siblings";
-import Toast from 'react-native-root-toast'
+import Toast from "react-native-root-toast";
+import {
+  MyVcBaseTextField,
+  MyVcIconTextField,
+} from "./src/components/TextFields";
+import { H1, H3, Title } from "./src/components/Texts";
+import { ImageSet } from "./src/config/Constant";
 export default function App() {
   const testFirebase = async () => {
     const data = {
@@ -28,17 +40,24 @@ export default function App() {
       <View style={styles.container}>
         <StatusBar style="auto" />
 
-        <Text> Aug 8 2022</Text>
-        <Text> Hmm </Text>
-
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#ff0000",
-            width: 100,
-            height: 100,
-          }}
-          onPress={testToastPopup}
-        ></TouchableOpacity>
+        <View style={{ marginHorizontal: 16, flex: 1, marginTop: 80 }}>
+          <H1 content={`Welcome!`} />
+          <H3
+            content={
+              "Automate your every day warddrobe and always be ready for any event!"
+            }
+          />
+          <MyVcBaseTextField
+            headerText={"Phone Number"}
+            placeholder={"Enter Phone Number"}
+          />
+          <MyVcIconTextField
+            iconImageName={ImageSet.eyeOpen}
+            headerText={"Password"}
+            placeholder={"Enter Password"}
+            onTapIcon={() => console.log("tapping icon")}
+          />
+        </View>
       </View>
     </RootSiblingParent>
   );
@@ -48,7 +67,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
+
     justifyContent: "center",
+  },
+  scrollView: {
+    flex: 1,
+    backgroundColor: "white",
   },
 });
