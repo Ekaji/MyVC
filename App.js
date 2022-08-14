@@ -24,6 +24,18 @@ import {
   TinyDarkGrayText,
 } from "./src/components/Texts";
 import { ImageSet } from "./src/config/Constant";
+import {
+  CircleBorderCameraButton,
+  CircleCameraButton,
+  CircleGalleryButton,
+  CircleSearchButton,
+  CircleUPCButton,
+  CurvedButton,
+  ParentCircleButton,
+  PlusButton,
+  UnderLinedButton,
+} from "./src/components/Buttons";
+import { bottomPopUpMessage } from "./src/helpers/helpers";
 export default function App() {
   const testFirebase = async () => {
     const data = {
@@ -33,17 +45,6 @@ export default function App() {
     await postTestDataToFireStore(data);
   };
 
-  const testToastPopup = () => {
-    // Add a Toast on screen.
-    let toast = Toast.show("Request failed to send.", {
-      duration: Toast.durations.LONG,
-    });
-
-    // You can manually hide the Toast, or it will automatically disappear after a `duration` ms timeout.
-    setTimeout(function hideToast() {
-      Toast.hide(toast);
-    }, 1000);
-  };
   return (
     <RootSiblingParent>
       <View style={styles.container}>
@@ -78,6 +79,64 @@ export default function App() {
           <UnderLinedText content={"Sign In"} />
           <SmallLightGrayText content={"By signing up, you agree to our"} />
           <TinyDarkGrayText content={"Terms of Service"} />
+          {
+            // Buttons
+          }
+          <UnderLinedButton
+            text={"UnderLined Button"}
+            onPress={() => {
+              bottomPopUpMessage("Touching the underlined botton");
+            }}
+          />
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              backgroundColor: "gray",
+            }}
+          >
+            <PlusButton
+              onPress={() => {
+                bottomPopUpMessage("Touching the plus botton");
+              }}
+            />
+            <CircleBorderCameraButton
+              onPress={() => {
+                bottomPopUpMessage("Touching the camera thin botton");
+              }}
+              text={"Camera"}
+            />
+            <CircleCameraButton
+              onPress={() => {
+                bottomPopUpMessage("Touching the camera bold botton");
+              }}
+              selected={false}
+            />
+            <CircleGalleryButton
+              onPress={() => {
+                bottomPopUpMessage("Touching the gallery botton");
+              }}
+              selected={false}
+            />
+            <CircleSearchButton
+              onPress={() => {
+                bottomPopUpMessage("Touching the search botton");
+              }}
+              selected={false}
+            />
+            <CircleUPCButton
+              onPress={() => {
+                bottomPopUpMessage("Touching the UPC botton");
+              }}
+            />
+          </View>
+          <CurvedButton
+            text={"Google"}
+            onPress={() => {
+              bottomPopUpMessage("Touching the curved botton");
+            }}
+            imageUrl={ImageSet.google_icon}
+          />
         </View>
       </View>
     </RootSiblingParent>

@@ -43,7 +43,7 @@ export function SmallLightGrayText({ content }) {
   );
 }
 
-export function UnderLinedText({ content }) {
+export function UnderLinedText({ content, moreStyles }) {
   return (
     <H3
       content={content}
@@ -53,11 +53,12 @@ export function UnderLinedText({ content }) {
         margin: 4,
         fontSize: 18,
         textDecorationLine: "underline",
+        ...moreStyles,
       }}
     />
   );
 }
-export function RegularBoldWhiteText({ content }) {
+export function RegularBoldWhiteText({ content, moreStyles }) {
   return (
     <H3
       content={content}
@@ -66,6 +67,7 @@ export function RegularBoldWhiteText({ content }) {
         fontWeight: "bold",
         margin: 4,
         fontSize: 18,
+        ...moreStyles,
       }}
     />
   );
