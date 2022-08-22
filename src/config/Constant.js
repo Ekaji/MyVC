@@ -1,3 +1,9 @@
+import { Dimensions } from "react-native";
+
+const { width, height } = Dimensions.get("window");
+export const SCREEN_WIDTH = width;
+export const SCREEN_HEIGHT = height;
+
 export const ImageSet = {
   dropDown: require("../assets/dropdown.png"),
   eyeOpen: require("../assets/eye_open_black.png"),
@@ -10,7 +16,9 @@ export const ImageSet = {
   search_black: require("../assets/search_black.png"),
   upc_black: require("../assets/upc_black.png"),
   google_icon: require("../assets/google.png"),
-  applet_icon: require("../assets/apple.png"),
+  apple_icon: require("../assets/apple.png"),
+  phone_icon: require("../assets/phone_white.png"),
+  back_icon: require("../assets/back_black.png")
 };
 
 export const Colors = {
@@ -21,4 +29,5 @@ export const Colors = {
   gray600: "#202021",
   gray700: "#2d3748",
   lightGray: "#525252",
+  verylightGray: "#ECECEC",
 };

@@ -12,6 +12,17 @@ import { Colors, ImageSet } from "../config/Constant";
 import { H3, RegularBoldWhiteText } from "../components/Texts";
 import { UnderLinedText } from "../components/Texts";
 
+export function BackButton({ onPress, moreStyles }) {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <Image
+        source={ImageSet.back_icon}
+        style={{ ...styles.backButton, ...moreStyles }}
+      />
+    </TouchableOpacity>
+  );
+}
+
 export function UnderLinedButton({ text, onPress, textStyle, moreStyles }) {
   return (
     <TouchableOpacity
@@ -23,7 +34,7 @@ export function UnderLinedButton({ text, onPress, textStyle, moreStyles }) {
   );
 }
 
-export function CurvedButton({ onPress, imageUrl, outline, text }) {
+export function CurvedButton({ onPress, imageUrl, outline, text, moreStyles }) {
   const extraViewStyle = outline
     ? {
         borderWidth: 1,
@@ -35,15 +46,17 @@ export function CurvedButton({ onPress, imageUrl, outline, text }) {
   const extraTextstyle = outline ? { color: Colors.black } : {};
   return (
     <>
-      <TouchableOpacity onPress={onPress} style={{ ...styles.curvedButton , ...extraViewStyle }}>
-        <View style={{ flexDirection: "row"  }}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={{ ...styles.curvedButton, ...extraViewStyle, ...moreStyles }}
+      >
+        <View style={{ flexDirection: "row" }}>
           {imageUrl && (
             <Image
               source={imageUrl}
               style={[
                 styles.curvedButtonImage,
                 { marginRight: 8, marginLeft: 8 },
-               
               ]}
             />
           )}
@@ -249,6 +262,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   curvedButtonImage: {
+    width: 24,
+    height: 24,
+  },
+  backButton: {
+    width: 24,
+    height: 24,
+  },
+  backButtonImage: {
     width: 24,
     height: 24,
   },

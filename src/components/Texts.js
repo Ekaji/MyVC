@@ -29,7 +29,7 @@ export function TinyDarkGrayText({ content }) {
   );
 }
 
-export function SmallLightGrayText({ content }) {
+export function SmallLightGrayText({ content , moreStyles }) {
   return (
     <H3
       content={content}
@@ -38,6 +38,7 @@ export function SmallLightGrayText({ content }) {
         fontWeight: "normal",
         margin: 4,
         fontSize: 14,
+        ...moreStyles
       }}
     />
   );

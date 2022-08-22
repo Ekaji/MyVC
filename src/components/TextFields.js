@@ -18,12 +18,14 @@ export function MyVcBaseTextField({
   onChangeText,
   onDelete,
   value,
-  moreStyles,
+  moreTextInputStyles,
   autoFocus,
   multiline,
+  moreViewStyles,
+  secureTextEntry = false,
 }) {
   return (
-    <View style={{ width: "100%", marginBottom: 8 }}>
+    <View style={{ marginBottom: 8, ...moreViewStyles }}>
       {stringIsHere(headerText) && (
         <H3
           content={headerText}
@@ -35,18 +37,21 @@ export function MyVcBaseTextField({
         />
       )}
 
-      <TextInput
-        multiline={multiline}
-        autoFocus={autoFocus}
-        value={value}
-        style={{ ...styles.baseTextInput, ...moreStyles }}
-        placeholder={placeholder}
-        onChangeText={onChangeText}
-        paddingStyle={styles.paddingStyle}
-        onKeyPress={(e) => {
-          e.nativeEvent.key === "Backspace" ? null : null;
-        }}
-      />
+     
+        <TextInput
+          multiline={multiline}
+          autoFocus={autoFocus}
+          value={value}
+          style={{ ...styles.baseTextInput, ...moreTextInputStyles }}
+          placeholder={placeholder}
+          onChangeText={onChangeText}
+          paddingStyle={styles.paddingStyle}
+          onKeyPress={(e) => {
+            e.nativeEvent.key === "Backspace" ? null : null;
+          }}
+          secureTextEntry={secureTextEntry}
+        />
+     
     </View>
   );
 }
@@ -63,9 +68,12 @@ export function MyVcIconTextField({
   iconImageName,
   onTapIcon,
   iconSize,
+  moreViewStyles,
+  moreTextInputStyles,
+  secureTextEntry,
 }) {
   return (
-    <View style={{ width: "100%", marginBottom: 8 }}>
+    <View style={{ width: "100%", marginBottom: 8, ...moreViewStyles }}>
       {stringIsHere(headerText) && (
         <H3
           content={headerText}
@@ -89,6 +97,7 @@ export function MyVcIconTextField({
           onKeyPress={(e) => {
             e.nativeEvent.key === "Backspace" ? null : null;
           }}
+          secureTextEntry={secureTextEntry}
         />
         {iconImageName && (
           <TouchableOpacity
@@ -115,11 +124,10 @@ const styles = StyleSheet.create({
   baseTextInput: {
     height: 40,
     borderColor: Colors.gray,
-    borderWidth: 0.5,
+    borderWidth: 0.3,
     borderRadius: 6,
     padding: 10,
     minWidth: 100,
-    width: "100%",
   },
   iconTextInput: {
     height: 40,
