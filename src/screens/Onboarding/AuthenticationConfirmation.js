@@ -21,11 +21,13 @@ import { Colors, ImageSet, SCREEN_WIDTH } from "../../config/Constant";
 import { bottomPopUpMessage } from "../../helpers/helpers";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Header from "../../components/Header";
-
+import { useDispatch } from "react-redux";
+import { signIn } from "../../store/Slices/auth";
 export default function AuthenticationConfirmation({ navigation, children }) {
   const goToPhoneNumberConfirmation = () => {
     navigation.navigate("SignUp");
   };
+  const dispatch = useDispatch();
 
   const goToMain = () => {};
 
@@ -99,7 +101,7 @@ export default function AuthenticationConfirmation({ navigation, children }) {
         <CurvedButton
           text={"Submit"}
           onPress={() => {
-            bottomPopUpMessage("BACKEND NOT IMPLEMENTED");
+           dispatch(signIn()); 
           }}
           moreStyles={styles.button}
         />

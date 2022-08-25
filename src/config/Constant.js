@@ -18,7 +18,14 @@ export const ImageSet = {
   google_icon: require("../assets/google.png"),
   apple_icon: require("../assets/apple.png"),
   phone_icon: require("../assets/phone_white.png"),
-  back_icon: require("../assets/back_black.png")
+  back_icon: require("../assets/back_black.png"),
+  shirt_black: require("../assets/shirt_black.png"),
+  shirt_white: require("../assets/shirt_white.png"),
+  shirt_outline_white: require("../assets/shirt_outline_white.png"),
+  user_white: require("../assets/user_white.png"),
+  user_black: require("../assets/user_black.png"),
+  wardrobe_white: require("../assets/wardrobe_white.png"),
+  wardrobe_black: require("../assets/wardrobe_black.png"),
 };
 
 export const Colors = {
@@ -31,3 +38,5 @@ export const Colors = {
   lightGray: "#525252",
   verylightGray: "#ECECEC",
 };
+
+export const USER_TOKEN = "USER_TOKEN";
