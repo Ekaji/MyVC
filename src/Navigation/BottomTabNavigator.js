@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Explore from "../screens/Main/Explore";
-import Account from "../screens/Main/Account";
+import AccounStack from "./AccountStack";
 import Outfit from "../screens/Main/Outfit";
 import { ImageSet } from "../config/Constant";
 import SingleTab from "../components/SingleTab";
-import { View,StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +23,7 @@ const TabArr = [
   },
   {
     name: "myProfile",
-    component: Account,
+    component: AccounStack,
     focusedImage: ImageSet.user_white,
     unfocusedImage: ImageSet.user_black,
   },
@@ -92,7 +92,14 @@ export default function BottomTabNavigator() {
     <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
       {TabArr.map((item, index, route) => {
         return (
-          <Tab.Screen key={index} name={item.name} component={item.component} />
+          <Tab.Screen
+            key={index}
+            name={item.name}
+            component={item.component}
+            options={{
+              headerShown: false,
+            }}
+          />
         );
       })}
     </Tab.Navigator>

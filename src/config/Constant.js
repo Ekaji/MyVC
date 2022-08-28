@@ -36,6 +36,7 @@ export const Colors = {
   gray600: "#202021",
   gray700: "#2d3748",
   lightGray: "#525252",
+  red: "#BF2C31",
   verylightGray: "#ECECEC",
 };
 

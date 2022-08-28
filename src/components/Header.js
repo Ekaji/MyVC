@@ -11,7 +11,6 @@ const style = StyleSheet.create({
     height: 64,
     borderBottomColor: Colors.verylightGray,
     borderBottomWidth: 1,
-
     width: "100%",
   },
 });
