@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function Wardrobe() {
+export default function CategoryItem() {
   return (
     <View>
-      <Text>Wardrobe</Text>
+      <Text>CategoryItem</Text>
     </View>
   )
 }

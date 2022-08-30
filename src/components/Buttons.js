@@ -12,6 +12,27 @@ import { Colors, ImageSet } from "../config/Constant";
 import { H3, RegularBoldWhiteText } from "../components/Texts";
 import { UnderLinedText } from "../components/Texts";
 
+export function FilterButton({ onPress, moreStyles }) {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <Image
+        source={ImageSet.filter_black}
+        style={{ ...styles.backButton, ...moreStyles }}
+      />
+    </TouchableOpacity>
+  );
+}
+export function SearchButton({ onPress, moreStyles }) {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <Image
+        source={ImageSet.search_black}
+        style={{ ...styles.backButton, ...moreStyles }}
+      />
+    </TouchableOpacity>
+  );
+}
+
 export function BackButton({ onPress, moreStyles }) {
   return (
     <TouchableOpacity onPress={onPress}>
