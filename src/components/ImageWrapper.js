@@ -1,5 +1,6 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import React from "react";
+import { ImageSet } from "../config/Constant";
 
 export default function ImageWrapper({
   uri,
@@ -8,13 +9,23 @@ export default function ImageWrapper({
   height,
   buttonEnabled,
 }) {
+  const activeOpacity = buttonEnabled ? 1 : 0.3;
   return (
-    <TouchableOpacity disabled={buttonEnabled}>
+    <TouchableOpacity
+      disabled={false}
+      activeOpacity={activeOpacity}
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "blue",
+        
+      }}
+    >
       <Image
-        source={{ uri: uri }}
+        source={ImageSet.apple_icon}
         style={{
-          width: width || size || 24,
-          height: height || size || 24,
+          // width: width || size || 24,
+          // height: height || size || 24,
         }}
       />
     </TouchableOpacity>

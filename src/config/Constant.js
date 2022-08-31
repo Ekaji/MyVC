@@ -30,6 +30,7 @@ export const ImageSet = {
   wardrobe_white: require("../assets/wardrobe_white.png"),
   wardrobe_black: require("../assets/wardrobe_black.png"),
   filter_black: require("../assets/filter_black.png"),
+  threedots_black: require("../assets/threedots_black.png"),
 };
 
 export const Colors = {
@@ -42,6 +43,7 @@ export const Colors = {
   lightGray: "#525252",
   red: "#BF2C31",
   verylightGray: "#ECECEC",
+  categorylightGray: "#F3F3F3"
 };
 
 export const USER_TOKEN = "USER_TOKEN";

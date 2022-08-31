@@ -1,10 +1,38 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { Colors } from "../config/Constant";
 
-export default function CategoryItem() {
+export default function CategoryItem({ text, onPress }) {
+  const backgroundColor = selected ? Colors.black : Colors.categorylightGray;
+  const textColor = selected ? Colors.white : Colors.black;
+  const [selected, setSelected] = useState(false);
+
+  const buttonPressed = () => {
+    setSelected(!selected);
+    onPress();
+  };
   return (
-    <View>
-      <Text>CategoryItem</Text>
-    </View>
-  )
+    <TouchableOpacity
+      onPress={() => buttonPressed()}
+      style={{
+        backgroundColor: selected ? Colors.black : Colors.categorylightGray,
+        height: 40,
+        minWidth: 60,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 25,
+        padding: 10,
+        marginHorizontal: 8,
+        marginBottom: 4,
+      }}
+    >
+      <Text
+        style={{
+          color: selected ? Colors.white : Colors.black,
+        }}
+      >
+        {text}
+      </Text>
+    </TouchableOpacity>
+  );
 }
