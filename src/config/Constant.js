@@ -4,8 +4,8 @@ export const { width, height } = Dimensions.get("window");
 export const SCREEN_WIDTH = width;
 export const SCREEN_HEIGHT = height;
 
-export const CLOTH_COMPONENET_HEIGHT = height/ 3 - 32
-export const CLOTH_COMPONENET_WIDTH = width/3 - 20
+export const CLOTH_COMPONENET_HEIGHT = height/2.3 - 32
+export const CLOTH_COMPONENET_WIDTH = width/2.2 - 20
 
 export const ImageSet = {
   dropDown: require("../assets/dropdown.png"),
@@ -31,6 +31,7 @@ export const ImageSet = {
   wardrobe_black: require("../assets/wardrobe_black.png"),
   filter_black: require("../assets/filter_black.png"),
   threedots_black: require("../assets/threedots_black.png"),
+  cloth_example_image: require("../assets/cloth_example_image.png"),
 };
 
 export const Colors = {

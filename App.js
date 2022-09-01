@@ -8,6 +8,7 @@ import MyStatusBar from "./src/components/StatusBar";
 import RootNavigator from "./src/Navigation/RootNavigator";
 import { store } from "./src/store/index";
 import { Provider } from "react-redux";
+import Outfit from "./src/screens/Main/Outfit";
 export default function App() {
   const testFirebase = async () => {
     const data = {
@@ -23,7 +24,6 @@ export default function App() {
         <MyStatusBar barStyle="light-content" backgroundColor="black" />
         <View style={styles.container}>
           <RootNavigator />
-          {/* <SignUp/> */}
         </View>
       </RootSiblingParent>
     </Provider>

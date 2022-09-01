@@ -102,23 +102,25 @@ export default function Outfit() {
           })}
         </ScrollView>
       </View>
-      <View
-        style={{
-          backgroundColor: "blue",
+
+      <FlatList
+        data={randomNumbers}
+        renderItem={({ item }) => (
+          <Cloth
+            imageUrl={ImageSet.cloth_example_image}
+            moreStyles={{
+              marginVertical: 8,
+            }}
+            checkbox={item % 2 === 0}
+          />
+        )}
+        keyExtractor={(item) => item.toString()}
+        numColumns={2}
+        columnWrapperStyle={{
+          justifyContent: "space-between",
+          marginHorizontal: 16,
         }}
-      >
-      <Cloth imageUrl={ImageSet.user_black} />
-
-      {/* <View>
-
-        {randomNumbers.map((item, index) => {
-          return (
-            <Cloth imageUrl={ImageSet.user_black} key={index} />
-          );
-        })}
-      </View> */}
-       
-      </View>
+      />
     </View>
   );
 }
