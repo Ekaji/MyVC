@@ -1,23 +1,23 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import SingleTab from "../../components/SingleTab";
+import SingleTab from "../../../components/SingleTab";
 import React from "react";
-import { Colors, ImageSet } from "../../config/Constant";
+import { Colors, ImageSet } from "../../../config/Constant";
 import { FloatingAction } from "react-native-floating-action";
-import Header from "../../components/Header";
+import Header from "../../../components/Header";
 import {
   BackButton,
   DropDownhButton,
   FilterButton,
   SearchButton,
-} from "../../components/Buttons";
-import { H1, H3, SmallLightGrayText } from "../../components/Texts";
-import { bottomPopUpMessage } from "../../helpers/helpers";
+} from "../../../components/Buttons";
+import { H1, H3, SmallLightGrayText } from "../../../components/Texts";
+import { bottomPopUpMessage } from "../../../helpers/helpers";
 
 const actions = [
   {
     text: "Scan Upc",
     icon: ImageSet.upc_black,
-    name: "Scan UPC",
+    name: "ScanUpc",
     position: 1,
     color: Colors.black,
     textBackground: null,
@@ -26,11 +26,12 @@ const actions = [
       fontSize: 14,
       fontWeight: "bold",
     },
+    
   },
   {
     text: "Search UPC",
     icon: ImageSet.search_black,
-    name: "Search UPC",
+    name: "SearchUpc",
     position: 2,
     color: Colors.black,
     textBackground: null,
@@ -41,9 +42,9 @@ const actions = [
     },
   },
   {
-    text: "Snap Photo",
+    text: "SnapPhoto",
     icon: ImageSet.camera_bold,
-    name: "Snap Photo",
+    name: "SnapPhoto",
     position: 3,
     color: Colors.black,
     textBackground: null,
@@ -68,9 +69,7 @@ const actions = [
   },
 ];
 
-const Items = ["", "", "", ""];
-
-export default function Explore() {
+export default function Explore({ navigation }) {
   return (
     <View style={styles.container}>
       <Header
@@ -82,7 +81,7 @@ export default function Explore() {
         }}
       >
         <H3
-          content={"Your Profile"}
+          content={"Your Wardrobe"}
           moreStyles={{
             color: Colors.gray700,
             fontWeight: "bold",
@@ -134,6 +133,7 @@ export default function Explore() {
         actions={actions}
         onPressItem={(name) => {
           console.log(`selected button: ${name}`);
+          navigation.navigate(name);
         }}
         color={Colors.black}
       />

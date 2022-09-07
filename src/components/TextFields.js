@@ -37,21 +37,19 @@ export function MyVcBaseTextField({
         />
       )}
 
-     
-        <TextInput
-          multiline={multiline}
-          autoFocus={autoFocus}
-          value={value}
-          style={{ ...styles.baseTextInput, ...moreTextInputStyles }}
-          placeholder={placeholder}
-          onChangeText={onChangeText}
-          paddingStyle={styles.paddingStyle}
-          onKeyPress={(e) => {
-            e.nativeEvent.key === "Backspace" ? null : null;
-          }}
-          secureTextEntry={secureTextEntry}
-        />
-     
+      <TextInput
+        multiline={multiline}
+        autoFocus={autoFocus}
+        value={value}
+        style={{ ...styles.baseTextInput, ...moreTextInputStyles }}
+        placeholder={placeholder}
+        onChangeText={onChangeText}
+        paddingStyle={styles.paddingStyle}
+        onKeyPress={(e) => {
+          e.nativeEvent.key === "Backspace" ? null : null;
+        }}
+        secureTextEntry={secureTextEntry}
+      />
     </View>
   );
 }
@@ -71,6 +69,7 @@ export function MyVcIconTextField({
   moreViewStyles,
   moreTextInputStyles,
   secureTextEntry,
+  rightButton = null,
 }) {
   return (
     <View style={{ width: "100%", marginBottom: 8, ...moreViewStyles }}>
@@ -85,7 +84,7 @@ export function MyVcIconTextField({
         />
       )}
 
-      <View style={{ ...styles.iconView }}>
+      <View style={{ ...styles.iconView , alignItems: "center" }}>
         <TextInput
           multiline={multiline}
           autoFocus={autoFocus}
@@ -115,6 +114,7 @@ export function MyVcIconTextField({
             />
           </TouchableOpacity>
         )}
+        {rightButton}
       </View>
     </View>
   );
@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderWidth: 0.5,
     borderColor: Colors.gray500,
+  
   },
   basTextInputView: {
     width: "100%",

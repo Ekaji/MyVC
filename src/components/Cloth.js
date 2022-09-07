@@ -77,9 +77,12 @@ export function ThreeDotsButton({ onPress }) {
 
 export function CheckboxButton({ onPress }) {
   const [isChecked, setChecked] = useState(false);
+  const clickedCgheckBox = () => {
+    setChecked(!isChecked);
+    onPress();
+  };
   return (
-    <TouchableOpacity
-      onPress={onPress}
+    <View
       style={{
         marginRight: 10,
         marginTop: 3,
@@ -88,10 +91,10 @@ export function CheckboxButton({ onPress }) {
       <Checkbox
         style={styles.checkBox}
         value={isChecked}
-        onValueChange={setChecked}
+        onValueChange={clickedCgheckBox}
         color={Colors.black}
       />
-    </TouchableOpacity>
+    </View>
   );
 }
 

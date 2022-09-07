@@ -12,6 +12,26 @@ import { Colors, ImageSet } from "../config/Constant";
 import { H3, RegularBoldWhiteText } from "../components/Texts";
 import { UnderLinedText } from "../components/Texts";
 
+export function ModalButton({ text, onPress }) {
+  return (
+    <TouchableOpacity
+      style={{
+        backgroundColor: Colors.white,
+        height: 60,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      onPress={onPress}
+    >
+      <Text
+      style = {{
+        color: Colors.black,
+        fontWeight: "bold",
+        fontSize: 16,
+      }}>{text}</Text>
+    </TouchableOpacity>
+  );
+}
 export function FilterButton({ onPress, moreStyles }) {
   return (
     <TouchableOpacity onPress={onPress}>

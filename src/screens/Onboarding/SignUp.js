@@ -6,6 +6,7 @@ import {
   View,
   Text,
   ScrollView,
+  Image,
 } from "react-native";
 import { CurvedButton } from "../../components/Buttons";
 import {
@@ -14,13 +15,22 @@ import {
 } from "../../components/TextFields";
 import { H1, H3, SmallLightGrayText } from "../../components/Texts";
 import { Colors, ImageSet, SCREEN_WIDTH } from "../../config/Constant";
-import { bottomPopUpMessage } from "../../helpers/helpers";
+import {
+  bottomPopUpMessage,
+  getListOfCountriesNames,
+} from "../../helpers/helpers";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import ModalDropdown from "react-native-modal-dropdown";
+import { useRef } from "react";
+import { useState } from "react";
 
 export default function SignUp({ navigation }) {
   const goToPhoneNumberConfirmation = () => {
     navigation.navigate("AuthenticationConfirmation");
   };
+
+  const dropDownRef = useRef(null);
+  const [country, setCountry] = useState("Country");
 
   const goToMain = () => {};
 
@@ -83,10 +93,28 @@ export default function SignUp({ navigation }) {
           }}
         />
         <MyVcIconTextField
-          iconImageName={ImageSet.dropDown}
+       
           headerText={"Your Country"}
           placeholder={"Click to select country"}
-          onTapIcon={() => console.log("tapping icon")}
+          value={country}
+          rightButton={
+            <ModalDropdown
+              options={getListOfCountriesNames()}
+              onSelect={(index, value) => {
+                console.log(index, value);
+                setCountry(value);
+              }}
+              dropdownStyle={{
+                shadowColor: "#000000",
+                shadowOffset: {
+                  width: 4,
+                  height: 3,
+                },
+                shadowRadius: 3,
+                shadowOpacity: 0.25,
+              }}
+            />
+          }
           moreViewStyles={{
             width: SCREEN_WIDTH - 32,
           }}
@@ -115,7 +143,7 @@ export default function SignUp({ navigation }) {
       <CurvedButton
         text={"Next"}
         onPress={() => {
-            goToPhoneNumberConfirmation();
+          goToPhoneNumberConfirmation();
         }}
         moreStyles={styles.button}
       />

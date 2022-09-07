@@ -4,8 +4,8 @@ export const { width, height } = Dimensions.get("window");
 export const SCREEN_WIDTH = width;
 export const SCREEN_HEIGHT = height;
 
-export const CLOTH_COMPONENET_HEIGHT = height/2.3 - 32
-export const CLOTH_COMPONENET_WIDTH = width/2.2 - 20
+export const CLOTH_COMPONENET_HEIGHT = height / 2.3 - 32;
+export const CLOTH_COMPONENET_WIDTH = width / 2.2 - 20;
 
 export const ImageSet = {
   dropDown: require("../assets/dropdown.png"),
@@ -32,6 +32,8 @@ export const ImageSet = {
   filter_black: require("../assets/filter_black.png"),
   threedots_black: require("../assets/threedots_black.png"),
   cloth_example_image: require("../assets/cloth_example_image.png"),
+  cancel_black: require("../assets/cancel_black.png"),
+  cancel_bold_black: require("../assets/cancel_bold_black.png"),
 };
 
 export const Colors = {
@@ -44,7 +46,8 @@ export const Colors = {
   lightGray: "#525252",
   red: "#BF2C31",
   verylightGray: "#ECECEC",
-  categorylightGray: "#F3F3F3"
+  categorylightGray: "#F3F3F3",
+  weirdWhite: "#FAFAFA",
 };
 
 export const USER_TOKEN = "USER_TOKEN";

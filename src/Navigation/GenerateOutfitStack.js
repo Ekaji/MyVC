@@ -1,33 +1,35 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import Account from "../screens/Main/Account/Account";
-import EditProfile from "../screens/Main/Account/EditProfile";
-import ChangePassword from "../screens/Main/Account/ChangePassword";
+import Outfit from "../screens/Main/GenerateOutfit/Outfit";
+import GeneratedOutfit from "../screens/Main/GenerateOutfit/GeneratedOutfit";
+import EditCloth from "../screens/Main/GenerateOutfit/EditCloth";
 
 const Stack = createStackNavigator();
 
-export default function AccounStack() {
+export default function GenerateOutfitStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
         options={{
           headerShown: false,
         }}
-        name="Account"
-        component={Account}
+        name="Outfit"
+        component={Outfit}
       />
+
       <Stack.Screen
         options={{
           headerShown: false,
         }}
-        name="EditProfile"
-        component={EditProfile}
+        name="GeneratedOutfit"
+        component={GeneratedOutfit}
       />
+
       <Stack.Screen
         options={{
           headerShown: false,
         }}
-        name="ChangePassword"
-        component={ChangePassword}
+        name="EditCloth"
+        component={EditCloth}
       />
     </Stack.Navigator>
   );

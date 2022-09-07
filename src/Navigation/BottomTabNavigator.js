@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Explore from "../screens/Main/Explore";
 import AccounStack from "./AccountStack";
-import Outfit from "../screens/Main/Outfit";
+import GenerateOutfitStack from "./GenerateOutfitStack";
+import WardrobeStack from "./WardrobeStack";
 import { ImageSet } from "../config/Constant";
 import SingleTab from "../components/SingleTab";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
@@ -11,13 +11,13 @@ const Tab = createBottomTabNavigator();
 const TabArr = [
   {
     name: "myCloset",
-    component: Explore,
+    component: WardrobeStack,
     focusedImage: ImageSet.wardrobe_white,
     unfocusedImage: ImageSet.wardrobe_black,
   },
   {
     name: "myOutfit",
-    component: Outfit,
+    component: GenerateOutfitStack,
     focusedImage: ImageSet.shirt_outline_white,
     unfocusedImage: ImageSet.shirt_black,
   },
@@ -65,6 +65,7 @@ function MyTabBar({ state, descriptors, navigation }) {
         const item = TabArr[index];
         return (
           <TouchableOpacity
+            key={index}
             accessibilityRole="button"
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -74,6 +75,7 @@ function MyTabBar({ state, descriptors, navigation }) {
             style={styles.tabButton}
           >
             <SingleTab
+              key={index}
               onPress={onPress}
               text={item.name}
               focused={isFocused}

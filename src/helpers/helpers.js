@@ -1,4 +1,5 @@
 import Toast from "react-native-root-toast";
+import countries from "countries-list";
 
 export const stringIsHere = (stringValue) => {
   return (
@@ -17,3 +18,20 @@ export const bottomPopUpMessage = (message) => {
     Toast.hide(toast);
   }, 1000);
 };
+
+//https://github.com/umpirsky/country-list
+
+export function getListOfCountriesNames() {
+  var countryNames = [];
+  var countryLimit = 10;
+  var count = 0;
+  for (var key in countries.countries) {
+    if (count > countryLimit) {
+      break;
+    }
+    countryNames.push(countries.countries[key].name);
+    count++;
+  }
+
+  return countryNames;
+}
