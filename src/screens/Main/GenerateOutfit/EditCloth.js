@@ -1,4 +1,4 @@
-import { View, StyleSheet, Switch } from "react-native";
+import { View, StyleSheet, Switch, Image } from "react-native";
 import React from "react";
 import Header from "../../../components/Header";
 import {
@@ -6,7 +6,7 @@ import {
   CurvedButton,
   UnderLinedButton,
 } from "../../../components/Buttons";
-import { Colors, SCREEN_WIDTH } from "../../../config/Constant";
+import { Colors, ImageSet, SCREEN_WIDTH } from "../../../config/Constant";
 import { H1, H3, SmallLightGrayText } from "../../../components/Texts";
 import {
   bottomPopUpMessage,
@@ -20,8 +20,21 @@ import {
 import ModalDropdown from "react-native-modal-dropdown";
 import { useState } from "react";
 import Checkbox from "expo-checkbox";
+import RadioForm, {
+  RadioButton,
+  RadioButtonInput,
+  RadioButtonLabel,
+} from "react-native-simple-radio-button";
 
 export default function EditCloth({ navigation }) {
+  const clothTypes = ["Top", "Bottom", "Shoes", "Outerwear", "Accessories"];
+  var radio_props = [
+    { label: "Top", value: 0 },
+    { label: "Bottom", value: 1 },
+    { label: "Shoes", value: 2 },
+    { label: "Outerwear", value: 3 },
+    { label: "Accessories", value: 4 },
+  ];
   const [country, setCountry] = useState("Country");
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
@@ -31,7 +44,6 @@ export default function EditCloth({ navigation }) {
         moreStyles={{
           justifyContent: "flex-start",
           flexDirection: "row",
-
           alignItems: "center",
         }}
       >
@@ -60,13 +72,16 @@ export default function EditCloth({ navigation }) {
         />
       </Header>
       <ScrollView>
-        <View
-          style={{
-            width: SCREEN_WIDTH,
-            height: 300,
-            backgroundColor: "red",
-          }}
-        ></View>
+        
+          <Image
+            source={ImageSet.cloth_example_image}
+            style={{
+              flex: 1,
+              width: SCREEN_WIDTH,
+              height: 300,
+            }}
+          />
+       
 
         <View
           style={{
@@ -133,12 +148,31 @@ export default function EditCloth({ navigation }) {
             content={"Select what category to save to*"}
             moreStyles={{
               color: Colors.gray700,
-              fontWeight: "bold",
+
               marginBottom: 8,
 
               marginTop: 8,
             }}
           />
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <RadioForm
+              radio_props={radio_props}
+              initial={0}
+              buttonColor={Colors.black}
+              radioStyle={{
+                margin: 4,
+                backgroundColor: Colors.verylightGray,
+                borderRadius: 10,
+                padding: 4,
+              }}
+              labelStyle={{ color: Colors.black }}
+              selectedButtonColor={Colors.black}
+              formHorizontal={true}
+              onPress={() => {
+                console.log("hello");
+              }}
+            />
+          </ScrollView>
         </View>
         <View
           style={{
@@ -147,22 +181,22 @@ export default function EditCloth({ navigation }) {
           }}
         >
           <MyVcBaseTextField
-            headerText={"Email"}
-            placeholder={"Enter Email"}
+            headerText={"Name of Item"}
+            placeholder={"Enter name of item"}
             moreViewStyles={{
               width: SCREEN_WIDTH - 32,
             }}
           />
           <MyVcBaseTextField
-            headerText={"Phone Number"}
-            placeholder={"Enter Phone Number"}
+            headerText={"Item Description"}
+            placeholder={"Enter item description"}
             moreViewStyles={{
               width: SCREEN_WIDTH - 32,
             }}
           />
           <MyVcIconTextField
-            headerText={"Your Country"}
-            placeholder={"Click to select country"}
+            headerText={"Sub Category"}
+            placeholder={"Enter sub category"}
             value={country}
             rightButton={
               <ModalDropdown
@@ -182,6 +216,54 @@ export default function EditCloth({ navigation }) {
                 }}
               />
             }
+            moreViewStyles={{
+              width: SCREEN_WIDTH - 32,
+            }}
+          />
+
+          <MyVcIconTextField
+            headerText={"Size"}
+            placeholder={"Enter size"}
+            value={country}
+            rightButton={
+              <ModalDropdown
+                options={getListOfCountriesNames()}
+                onSelect={(index, value) => {
+                  console.log(index, value);
+                  setCountry(value);
+                }}
+                dropdownStyle={{
+                  shadowColor: "#000000",
+                  shadowOffset: {
+                    width: 4,
+                    height: 3,
+                  },
+                  shadowRadius: 3,
+                  shadowOpacity: 0.25,
+                }}
+              />
+            }
+            moreViewStyles={{
+              width: SCREEN_WIDTH - 32,
+            }}
+          />
+          <MyVcBaseTextField
+            headerText={"Color"}
+            placeholder={"Enter color"}
+            moreViewStyles={{
+              width: SCREEN_WIDTH - 32,
+            }}
+          />
+          <MyVcBaseTextField
+            headerText={"Brand"}
+            placeholder={"Enter item brand"}
+            moreViewStyles={{
+              width: SCREEN_WIDTH - 32,
+            }}
+          />
+          <MyVcBaseTextField
+            headerText={"Comments"}
+            placeholder={"Enter comments"}
             moreViewStyles={{
               width: SCREEN_WIDTH - 32,
             }}
