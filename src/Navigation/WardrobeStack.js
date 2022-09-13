@@ -4,6 +4,7 @@ import Gallery from "../screens/Main/Wardrobe/Gallery";
 import ScanUpc from "../screens/Main/Wardrobe/ScanUpc";
 import SnapPhoto from "../screens/Main/Wardrobe/SnapPhoto";
 import SearchUpc from "../screens/Main/Wardrobe/SearchUpc";
+import AddClothes from "../screens/Main/Wardrobe/AddClothes";
 
 const Stack = createStackNavigator();
 const Screens = [
@@ -26,6 +27,10 @@ const Screens = [
   {
     name: "SearchUpc",
     component: SearchUpc,
+  },
+  {
+    name: "AddClothes",
+    component: AddClothes,
   },
 ];
 

@@ -34,6 +34,7 @@ export const ImageSet = {
   cloth_example_image: require("../assets/cloth_example_image.png"),
   cancel_black: require("../assets/cancel_black.png"),
   cancel_bold_black: require("../assets/cancel_bold_black.png"),
+  checkmark_black: require("../assets/checkmark_black.png"),
 };
 
 export const Colors = {
