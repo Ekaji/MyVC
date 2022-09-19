@@ -1,4 +1,5 @@
-import { Image, StyleSheet, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { postTestDataToFireStore } from "./FirebaseFireStoreDB";
 import { RootSiblingParent } from "react-native-root-siblings";
 
@@ -7,12 +8,12 @@ import MyStatusBar from "./src/components/StatusBar";
 import RootNavigator from "./src/Navigation/RootNavigator";
 import { store } from "./src/store/index";
 import { Provider } from "react-redux";
-
-import { useState, useEffect } from "react";
-
-import removeBackgroundFromImage from "./RemoveBackground";
-const testImageUrl =
-  "https://firebasestorage.googleapis.com/v0/b/vc-development-44703.appspot.com/o/top.jpg?alt=media&token=77dba186-29c7-451e-8b90-0e0d24e92e01";
+import Outfit from "./src/screens/Main/GenerateOutfit/Outfit";
+import ModalWrapper from "./src/components/ModalWrapper";
+import { useState } from "react";
+import ModalDropdown from "react-native-modal-dropdown";
+import { ImageSet } from "./src/config/Constant";
+import { getListOfCountriesNames } from "./src/helpers/helpers";
 export default function App() {
   const testFirebase = async () => {
     const data = {
@@ -21,14 +22,6 @@ export default function App() {
     };
     await postTestDataToFireStore(data);
   };
-
-  const testimageBackgroundRemoval = (imageurl) => {
-    removeBackgroundFromImage(imageurl);
-  };
-
-  useEffect(() => {
-    // testimageBackgroundRemoval(testImageUrl);
-  }, []);
 
   const [dropDownText, setDropDownText] = useState("nothing selected");
 
@@ -48,6 +41,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+   
   },
   scrollView: {
     flex: 1,
