@@ -1,22 +1,49 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import React from 'react';
-import { Colors } from '../../../config/Constant';
-import Header from '../../../components/Header';
-import { BackButton } from '../../../components/Buttons';
-import { H1, H3 } from '../../../components/Texts';
+import { Colors, SCREEN_WIDTH } from '../../../config/Constant';
 import HeaderBar from '../../../shared/header';
+import {
+  MyVcBaseTextField,
+  MyVCDropDown,
+} from '../../../components/TextFields';
+import { useState } from 'react';
 
 export default function EditProfile() {
+  const [country, setCountry] = useState('');
+
+  const onComplete = (selectedCountry) => {
+    setCountry(selectedCountry);
+  };
+
   return (
     <View style={styles.container}>
       <HeaderBar hasBackButton headerText={'Edit Profile'} />
-      <View
-        style={{
-          flex: 0.8,
-          marginLeft: 16,
-        }}
-      >
-        <H1 content={'Reed Richards'} moreStyles={{ marginTop: 32 }} />
+      <View style={styles.mainBodyContainer}>
+        <MyVcBaseTextField
+          headerText={'First Name'}
+          placeholder={'Enter First Name'}
+          moreViewStyles={styles.textInput}
+        />
+        <MyVcBaseTextField
+          headerText={'Last Name'}
+          placeholder={'Enter Last Name'}
+          moreViewStyles={styles.textInput}
+        />
+        <MyVcBaseTextField
+          headerText={'Email'}
+          placeholder={'Enter Email'}
+          moreViewStyles={styles.textInput}
+        />
+        <MyVcBaseTextField
+          headerText={'Phone Number'}
+          placeholder={'Enter Phone Number'}
+          moreViewStyles={styles.textInput}
+        />
+        <MyVCDropDown
+          moreViewStyles={styles.textInput}
+          headerText={'Your Country'}
+          onComplete={onComplete}
+        />
       </View>
     </View>
   );
@@ -32,5 +59,14 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 64,
     borderRadius: 32,
+  },
+  mainBodyContainer: {
+    marginTop: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textInput: {
+    width: SCREEN_WIDTH - 32,
+    marginBottom: 20,
   },
 });
