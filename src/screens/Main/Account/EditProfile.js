@@ -1,12 +1,12 @@
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import React from 'react';
 import { Colors, SCREEN_WIDTH } from '../../../config/Constant';
-import HeaderBar from '../../../shared/header';
 import {
   MyVcBaseTextField,
   MyVCDropDown,
 } from '../../../components/TextFields';
 import { useState } from 'react';
+import { HeaderBar } from '../../../components/Header';
 
 export default function EditProfile() {
   const [country, setCountry] = useState('');
