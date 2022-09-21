@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { LongButton } from '../../../../components/Buttons';
 import { HeaderBar } from '../../../../components/Header';
 import { MyVcIconTextField } from '../../../../components/TextFields';
 import { H1 } from '../../../../components/Texts';
 import { ImageSet } from '../../../../config/Constant';
-import LongButton from '../../../../shared/long-button';
 import { styles } from './style';
 
 const NewPassword = ({ navigation }) => {
