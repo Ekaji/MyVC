@@ -7,7 +7,7 @@ import HeaderBar from '../../../../shared/header';
 import LongButton from '../../../../shared/long-button';
 import { styles } from './style';
 
-const ChangePassword = () => {
+const ChangePassword = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <HeaderBar hasBackButton />

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../../../config/Constant';
+import { Colors, SCREEN_WIDTH } from '../../../../config/Constant';
 
 export const styles = StyleSheet.create({
   container: {
@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
   },
   formInputContainer: {
     marginTop: 60,
+    alignSelf: 'center',
   },
   requestCodeContainer: {
     marginTop: 48,
@@ -41,5 +42,12 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     bottom: 10,
     position: 'absolute',
+  },
+  inputText: {
+    width: SCREEN_WIDTH - 43,
+    marginBottom: 32,
+  },
+  marginTop: {
+    marginTop: 120,
   },
 });

@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import Account from '../screens/Main/Account/Account';
 import ChangePassword from '../screens/Main/Account/change-password';
+import NewPassword from '../screens/Main/Account/change-password/NewPassword';
 import EditProfile from '../screens/Main/Account/EditProfile';
 
 const Stack = createStackNavigator();
@@ -28,6 +29,13 @@ export default function AccounStack() {
         }}
         name="ChangePassword"
         component={ChangePassword}
+      />
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="NewPassword"
+        component={NewPassword}
       />
     </Stack.Navigator>
   );
