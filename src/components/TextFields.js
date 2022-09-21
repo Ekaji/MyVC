@@ -23,6 +23,7 @@ export function MyVcBaseTextField({
   multiline,
   moreViewStyles,
   secureTextEntry = false,
+  ...props
 }) {
   return (
     <View style={{ marginBottom: 8, ...moreViewStyles }}>
@@ -49,6 +50,7 @@ export function MyVcBaseTextField({
           e.nativeEvent.key === "Backspace" ? null : null;
         }}
         secureTextEntry={secureTextEntry}
+        {...props}
       />
     </View>
   );
