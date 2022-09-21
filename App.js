@@ -1,20 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { postTestDataToFireStore } from "./FirebaseFireStoreDB";
+import { RootSiblingParent } from "react-native-root-siblings";
 
+import MyStatusBar from "./src/components/StatusBar";
+
+import RootNavigator from "./src/Navigation/RootNavigator";
+import { store } from "./src/store/index";
+import { Provider } from "react-redux";
+import Outfit from "./src/screens/Main/GenerateOutfit/Outfit";
+import ModalWrapper from "./src/components/ModalWrapper";
+import { useState } from "react";
+import ModalDropdown from "react-native-modal-dropdown";
+import { ImageSet } from "./src/config/Constant";
+import { getListOfCountriesNames } from "./src/helpers/helpers";
 export default function App() {
+  const testFirebase = async () => {
+    const data = {
+      name: "test",
+      age: "test",
+    };
+    await postTestDataToFireStore(data);
+  };
+
+  const [dropDownText, setDropDownText] = useState("nothing selected");
+
   return (
-    <View style={styles.container}>
-      <Text> V Wardrobe - Ebuka Egbunam here , Thursday June 16 2022</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <RootSiblingParent>
+        <MyStatusBar barStyle="light-content" backgroundColor="black" />
+        <View style={styles.container}>
+          <RootNavigator />
+        </View>
+      </RootSiblingParent>
+    </Provider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+   
+  },
+  scrollView: {
+    flex: 1,
+    backgroundColor: "white",
   },
 });
