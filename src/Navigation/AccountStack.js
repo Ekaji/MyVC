@@ -1,7 +1,7 @@
-import { createStackNavigator } from "@react-navigation/stack";
-import Account from "../screens/Main/Account/Account";
-import EditProfile from "../screens/Main/Account/EditProfile";
-import ChangePassword from "../screens/Main/Account/ChangePassword";
+import { createStackNavigator } from '@react-navigation/stack';
+import Account from '../screens/Main/Account/Account';
+import ChangePassword from '../screens/Main/Account/change-password';
+import EditProfile from '../screens/Main/Account/EditProfile';
 
 const Stack = createStackNavigator();
 
