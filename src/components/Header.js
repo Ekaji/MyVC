@@ -1,6 +1,6 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image ,Text} from 'react-native';
 import React from 'react';
-import { Colors } from '../config/Constant';
+import { Colors, ImageSet } from '../config/Constant';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Header({ children, moreStyles }) {
