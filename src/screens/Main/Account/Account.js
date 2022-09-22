@@ -1,25 +1,25 @@
-import { View, StyleSheet } from "react-native";
-import React from "react";
-import Header from "../../../components/Header";
+import { View, StyleSheet } from 'react-native';
+import React from 'react';
+import Header from '../../../components/Header';
 import {
   BackButton,
   CurvedButton,
   UnderLinedButton,
-} from "../../../components/Buttons";
-import { Colors } from "../../../config/Constant";
-import { H1, H3, SmallLightGrayText } from "../../../components/Texts";
-import { bottomPopUpMessage } from "../../../helpers/helpers";
-import { ScrollView } from "react-native-gesture-handler";
+} from '../../../components/Buttons';
+import { Colors } from '../../../config/Constant';
+import { H1, H3, SmallLightGrayText } from '../../../components/Texts';
+import { bottomPopUpMessage } from '../../../helpers/helpers';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Account({ navigation }) {
   return (
     <View style={styles.container}>
       <Header
         moreStyles={{
-          justifyContent: "flex-start",
-          flexDirection: "row",
+          justifyContent: 'flex-start',
+          flexDirection: 'row',
 
-          alignItems: "center",
+          alignItems: 'center',
         }}
       >
         <BackButton
@@ -35,10 +35,10 @@ export default function Account({ navigation }) {
         />
 
         <H3
-          content={"Your Profile"}
+          content={'Your Profile'}
           moreStyles={{
             color: Colors.gray700,
-            fontWeight: "bold",
+            fontWeight: 'bold',
             marginBottom: 8,
             marginLeft: 32,
             marginTop: 8,
@@ -51,7 +51,7 @@ export default function Account({ navigation }) {
           marginLeft: 16,
         }}
       >
-        <H1 content={"Reed Richards"} moreStyles={{ marginTop: 32 }} />
+        <H1 content={'Reed Richards'} moreStyles={{ marginTop: 32 }} />
         <ScrollView>
           <View
             style={{
@@ -59,14 +59,14 @@ export default function Account({ navigation }) {
             }}
           >
             <H3
-              content={"Email"}
+              content={'Email'}
               moreStyles={{
                 color: Colors.gray700,
-                fontWeight: "bold",
+                fontWeight: 'bold',
                 marginTop: 32,
               }}
             />
-            <SmallLightGrayText content={"test"} />
+            <SmallLightGrayText content={'test'} />
           </View>
 
           <View
@@ -75,13 +75,13 @@ export default function Account({ navigation }) {
             }}
           >
             <H3
-              content={"Phone Number"}
+              content={'Phone Number'}
               moreStyles={{
                 color: Colors.gray700,
-                fontWeight: "bold",
+                fontWeight: 'bold',
               }}
             />
-            <SmallLightGrayText content={"test"} />
+            <SmallLightGrayText content={'test'} />
           </View>
 
           <View
@@ -90,13 +90,13 @@ export default function Account({ navigation }) {
             }}
           >
             <H3
-              content={"Country"}
+              content={'Country'}
               moreStyles={{
                 color: Colors.gray700,
-                fontWeight: "bold",
+                fontWeight: 'bold',
               }}
             />
-            <SmallLightGrayText content={"test"} />
+            <SmallLightGrayText content={'test'} />
           </View>
 
           <View
@@ -105,8 +105,8 @@ export default function Account({ navigation }) {
             }}
           >
             <UnderLinedButton
-              text={"Logout"}
-              onPress={() => bottomPopUpMessage("BACKEND NOT IMPLEMENTED")}
+              text={'Logout'}
+              onPress={() => bottomPopUpMessage('BACKEND NOT IMPLEMENTED')}
             />
           </View>
 
@@ -116,8 +116,8 @@ export default function Account({ navigation }) {
             }}
           >
             <UnderLinedButton
-              text={"Privacy Policy"}
-              onPress={() => bottomPopUpMessage("BACKEND NOT IMPLEMENTED")}
+              text={'Privacy Policy'}
+              onPress={() => bottomPopUpMessage('BACKEND NOT IMPLEMENTED')}
             />
           </View>
 
@@ -127,8 +127,8 @@ export default function Account({ navigation }) {
             }}
           >
             <UnderLinedButton
-              text={"Change Passowrds"}
-              onPress={() => navigation.navigate("ChangePassword")}
+              text={'Change Passwords'}
+              onPress={() => navigation.navigate('ChangePassword')}
             />
           </View>
           <View
@@ -137,11 +137,11 @@ export default function Account({ navigation }) {
             }}
           >
             <UnderLinedButton
-              text={"Remove Account"}
+              text={'Remove Account'}
               textStyle={{
                 color: Colors.red,
               }}
-              onPress={() => bottomPopUpMessage("BACKEND NOT IMPLEMENTED")}
+              onPress={() => bottomPopUpMessage('BACKEND NOT IMPLEMENTED')}
             />
           </View>
         </ScrollView>
@@ -149,15 +149,15 @@ export default function Account({ navigation }) {
       <View
         style={{
           flex: 0.2,
-          justifyContent: "flex-end",
-          alignItems: "center",
-          width: "100%",
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          width: '100%',
         }}
       >
         <CurvedButton
-          text={"Edit"}
+          text={'Edit'}
           onPress={() => {
-            navigation.navigate("EditProfile");
+            navigation.navigate('EditProfile');
           }}
           moreStyles={styles.button}
           outline={true}
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginVertical: 8,
-    width: "90%",
+    width: '90%',
     height: 64,
     borderRadius: 32,
   },

@@ -38,14 +38,8 @@ export default function AddClothes({ navigation, route }) {
   ];
   const [country, setCountry] = useState("Country");
   const [isEnabled, setIsEnabled] = useState(false);
-  const [imageBackgroundIsRemoved , setImageBackgroundIsRemoved] = useState(false);
-  const [imageBackgroundRemovedloading , setImageBackgroundIsRemovedLoading] = useState(false);
   const [image, setImage] = useState(navParams.image ? navParams.image : null);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-
-  const  removebackgroundAndReturnNewImageUrl= () => {
-
-  }
   return (
     <View style={styles.container}>
       <Header
