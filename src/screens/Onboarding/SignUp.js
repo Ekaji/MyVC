@@ -20,7 +20,15 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useRef } from 'react';
 import { useState } from 'react';
 
-export default function SignUp({ navigation }) {
+export default function SignUp({ navigation, route }) {
+  const method = route.params?.method;
+  const userData = route.params?.userData;
+
+  const [firstName, setFirstName] = useState(userData?.given_name || '');
+  const [lastName, setLastName] = useState(userData?.family_name || '');
+  const [email, setEmail] = useState(userData?.email || '');
+  const [phone, setPhone] = useState('');
+
   const goToPhoneNumberConfirmation = () => {
     navigation.navigate('AuthenticationConfirmation');
   };
@@ -65,16 +73,22 @@ export default function SignUp({ navigation }) {
       >
         <MyVcBaseTextField
           headerText={'First Name'}
+          value={firstName}
+          onChangeText={(text) => setFirstName(text)}
           placeholder={'Enter First Name'}
           moreViewStyles={styles.inputText}
         />
         <MyVcBaseTextField
           headerText={'Last Name'}
+          value={lastName}
+          onChangeText={(text) => setLastName(text)}
           placeholder={'Enter Last Name'}
           moreViewStyles={styles.inputText}
         />
         <MyVcBaseTextField
           headerText={'Email'}
+          value={email}
+          onChangeText={(text) => setEmail(text)}
           placeholder={'Enter Email'}
           moreViewStyles={{
             width: SCREEN_WIDTH - 32,
@@ -82,6 +96,7 @@ export default function SignUp({ navigation }) {
         />
         <MyVcBaseTextField
           headerText={'Phone Number'}
+          onChangeText={(text) => setPhone(text)}
           placeholder={'Enter Phone Number'}
           moreViewStyles={styles.inputText}
         />
@@ -90,25 +105,29 @@ export default function SignUp({ navigation }) {
           onComplete={onComplete}
           moreViewStyles={styles.inputText}
         />
-        <MyVcIconTextField
-          iconImageName={ImageSet.eyeClose}
-          headerText={'Password'}
-          placeholder={'Enter Password'}
-          onTapIcon={() => console.log('tapping icon')}
-          moreViewStyles={styles.inputText}
-          secureTextEntry={true}
-        />
-        <MyVcIconTextField
-          iconImageName={ImageSet.eyeClose}
-          headerText={'Confirm Password'}
-          placeholder={'Enter Password'}
-          onTapIcon={() => console.log('tapping icon')}
-          moreViewStyles={styles.inputText}
-          secureTextEntry={true}
-        />
+        {method === 'google' ? null : (
+          <>
+            <MyVcIconTextField
+              iconImageName={ImageSet.eyeClose}
+              headerText={'Password'}
+              placeholder={'Enter Password'}
+              onTapIcon={() => console.log('tapping icon')}
+              moreViewStyles={styles.inputText}
+              secureTextEntry={true}
+            />
+            <MyVcIconTextField
+              iconImageName={ImageSet.eyeClose}
+              headerText={'Confirm Password'}
+              placeholder={'Enter Password'}
+              onTapIcon={() => console.log('tapping icon')}
+              moreViewStyles={styles.inputText}
+              secureTextEntry={true}
+            />
+          </>
+        )}
       </KeyboardAwareScrollView>
       <CurvedButton
-        text={'Next'}
+        text={method === 'google' ? 'Submit' : 'Next'}
         onPress={() => {
           goToPhoneNumberConfirmation();
         }}

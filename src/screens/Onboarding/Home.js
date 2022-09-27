@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { CurvedButton } from '../../components/Buttons';
 import { H1, H3, SmallLightGrayText } from '../../components/Texts';
 import { Colors, ImageSet } from '../../config/Constant';
-import { bottomPopUpMessage } from '../../helpers/helpers';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import * as AppleAuthentication from 'expo-apple-authentication';
+import axios from 'axios';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -14,7 +14,6 @@ export default function Home({ navigation }) {
   const goToSignUp = () => {
     navigation.navigate('SignUp');
   };
-  const goToMain = () => {};
 
   const [request, response, googlePromptAsync] = Google.useAuthRequest({
     expoClientId:
@@ -26,7 +25,25 @@ export default function Home({ navigation }) {
 
   const googleLogin = async () => {
     const response = await googlePromptAsync();
-    console.log(response);
+    if (response?.type === 'success') {
+      axios
+        .get('https://www.googleapis.com/userinfo/v2/me', {
+          headers: {
+            Authorization: 'Bearer ' + response?.authentication?.accessToken,
+          },
+        })
+        .then((response) => {
+          if (response.data) {
+            navigation.navigate('SignUp', {
+              method: 'google',
+              userData: response.data,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    }
   };
 
   const appleLogin = async () => {
@@ -39,7 +56,7 @@ export default function Home({ navigation }) {
       });
 
       if (identityToken) {
-        console.log(identityToken);
+        console.log(identityToken, 'token');
       }
     } catch (error) {
       console.log(error);
