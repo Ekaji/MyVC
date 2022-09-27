@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { SafeAreaView, StatusBar, StyleSheet, View, Text } from "react-native";
-import { postTestDataToFireStore } from "../../../FirebaseFireStoreDB";
+import { postTestData2ToFireStore, postTestDataToFireStore , retriveTestDataFromFireStore} from "../../../FirebaseFireStoreDB";
 import { CurvedButton } from "../../components/Buttons";
 import { H1, H3, SmallLightGrayText } from "../../components/Texts";
 import { Colors, ImageSet } from "../../config/Constant";
@@ -15,7 +15,7 @@ export default function Home({ navigation }) {
     };
     await postTestDataToFireStore(data);
   };
-  
+
   const goToSignUp = () => {
     navigation.navigate("SignUp");
   };
@@ -47,7 +47,7 @@ export default function Home({ navigation }) {
         <CurvedButton
           text={"Google"}
           onPress={() => {
-            testFirebase();
+            postTestData2ToFireStore()
             //bottomPopUpMessage("BACKEND NOT IMPLEMENTED");
           }}
           imageUrl={ImageSet.google_icon}
