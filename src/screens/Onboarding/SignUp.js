@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  Image,
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { CurvedButton } from '../../components/Buttons';
 import {
   MyVcBaseTextField,
@@ -19,6 +11,7 @@ import { Colors, ImageSet, SCREEN_WIDTH } from '../../config/Constant';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useRef } from 'react';
 import { useState } from 'react';
+import { bottomPopUpMessage } from '../../helpers/helpers';
 
 export default function SignUp({ navigation, route }) {
   const method = route.params?.method;
@@ -39,7 +32,14 @@ export default function SignUp({ navigation, route }) {
     setCountry(selectedCountry);
   };
 
-  const goToMain = () => {};
+  const signInWithGoogle = async () => {
+    if (!phone) {
+      return bottomPopUpMessage('Phone is required');
+    }
+    if (!country) {
+      return bottomPopUpMessage('Country is required');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -52,7 +52,7 @@ export default function SignUp({ navigation, route }) {
         />
         <H3
           content={
-            'Automate your every day warddrobe and always be ready for any event!'
+            'Automate your every day wardrobe and always be ready for any event!'
           }
           moreStyles={{
             marginTop: 16,
@@ -127,9 +127,11 @@ export default function SignUp({ navigation, route }) {
         )}
       </KeyboardAwareScrollView>
       <CurvedButton
-        text={method === 'google' ? 'Submit' : 'Next'}
+        text={method === 'google' ? 'Sign in' : 'Next'}
         onPress={() => {
-          goToPhoneNumberConfirmation();
+          method === 'google'
+            ? signInWithGoogle()
+            : goToPhoneNumberConfirmation();
         }}
         moreStyles={styles.button}
       />
