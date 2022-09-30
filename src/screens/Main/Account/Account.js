@@ -65,7 +65,12 @@ export default function Account({ navigation }) {
           marginLeft: 16,
         }}
       >
-        <H1 content={'Reed Richards'} moreStyles={{ marginTop: 32 }} />
+        <H1
+          content={
+            `${userData?.firstName} ${userData?.lastName}` || 'Reed Richards'
+          }
+          moreStyles={{ marginTop: 32 }}
+        />
         <ScrollView>
           <View
             style={{
