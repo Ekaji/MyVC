@@ -12,6 +12,15 @@ import { retriveTestDataFromFireStore } from '../../../FirebaseFireStoreDB';
 WebBrowser.maybeCompleteAuthSession();
 
 export default function Home({ navigation }) {
+
+  const testFirebase = async () => {
+    const data = {
+      name: "test",
+      age: "test",
+    };
+    await postTestDataToFireStore(data);
+  };
+
   const goToSignUp = () => {
     navigation.navigate('SignUp');
   };
@@ -94,6 +103,7 @@ export default function Home({ navigation }) {
           text={'Google'}
           onPress={() => {
             googleLogin();
+         
           }}
           imageUrl={ImageSet.google_icon}
           moreStyles={styles.button}

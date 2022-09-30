@@ -35,3 +35,15 @@ export function getListOfCountriesNames() {
 
   return countryNames;
 }
+
+export const pathResolver = ( path ) => {
+  if (typeof path !== 'string') {
+   throw 'Parameter is not a string!';
+  }
+  if (!path.includes('.')) {
+    return path;
+  }
+  var allPathNames = path.split(".");
+  return allPathNames;
+  
+}

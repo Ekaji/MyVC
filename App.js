@@ -15,13 +15,7 @@ import ModalDropdown from "react-native-modal-dropdown";
 import { ImageSet } from "./src/config/Constant";
 import { getListOfCountriesNames } from "./src/helpers/helpers";
 export default function App() {
-  const testFirebase = async () => {
-    const data = {
-      name: "test",
-      age: "test",
-    };
-    await postTestDataToFireStore(data);
-  };
+
 
   const [dropDownText, setDropDownText] = useState("nothing selected");
 
