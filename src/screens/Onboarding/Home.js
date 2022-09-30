@@ -65,7 +65,8 @@ export default function Home({ navigation }) {
   };
 
   useEffect(() => {
-    retriveTestDataFromFireStore();
+    // retriveTestDataFromFireStore();
+    // postTestData2ToFireStore();
   }, []);
   return (
     <View style={styles.container}>

@@ -12,6 +12,7 @@ import {
   query,
   getDoc,
 } from 'firebase/firestore';
+import { bottomPopUpMessage } from './src/helpers/helpers';
 
 const db = getFirestore(app);
 
@@ -26,8 +27,41 @@ export const postTestDataToFireStore = async (data) => {
   }
 };
 
+export const registerWithGoogle = async (data) => {
+  try {
+    const path = USER_PATH + '/' + data.id;
+    const userdocRef = doc(db, path);
+    const docRef = await setDoc(userdocRef, data);
+    const message = 'Data is sent to firestore with id';
+    bottomPopUpMessage(message);
+    return docRef;
+  } catch (error) {
+    const message = 'Error while sending data to firestore: ' + error.message;
+    bottomPopUpMessage(message);
+    return null;
+  }
+};
+
+export const fetchUser = async (userId) => {
+  try {
+    const path = USER_PATH + '/' + userId;
+    const userdocRef = doc(db, path);
+    const userdocSnap = await getDoc(userdocRef);
+    if (userdocSnap.exists()) {
+      const message = 'Data is available in firestore ';
+      bottomPopUpMessage(message);
+      return userdocSnap.data();
+    } else {
+      const message = 'Data does not exist';
+      bottomPopUpMessage(message);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const testUserData = {
-  id: '1',
+  id: '2',
   firstName: 'test-firstname',
   lastName: 'test-lastname',
   email: 'test-email',

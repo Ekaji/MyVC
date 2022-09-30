@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../../components/Header';
 import {
   BackButton,
@@ -10,8 +10,22 @@ import { Colors } from '../../../config/Constant';
 import { H1, H3, SmallLightGrayText } from '../../../components/Texts';
 import { bottomPopUpMessage } from '../../../helpers/helpers';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
+import { fetchUser } from '../../../../FirebaseFireStoreDB';
 
 export default function Account({ navigation }) {
+  const userId = useSelector((state) => state.auth?.id);
+  const [userData, setUserData] = useState({});
+
+  const getUser = async () => {
+    const res = await fetchUser(userId);
+    setUserData(res);
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Header
@@ -66,7 +80,7 @@ export default function Account({ navigation }) {
                 marginTop: 32,
               }}
             />
-            <SmallLightGrayText content={'test'} />
+            <SmallLightGrayText content={userData?.email || 'test'} />
           </View>
 
           <View
@@ -81,7 +95,7 @@ export default function Account({ navigation }) {
                 fontWeight: 'bold',
               }}
             />
-            <SmallLightGrayText content={'test'} />
+            <SmallLightGrayText content={userData?.phone || 'test'} />
           </View>
 
           <View
@@ -96,7 +110,7 @@ export default function Account({ navigation }) {
                 fontWeight: 'bold',
               }}
             />
-            <SmallLightGrayText content={'test'} />
+            <SmallLightGrayText content={userData?.country || 'test'} />
           </View>
 
           <View
@@ -121,16 +135,18 @@ export default function Account({ navigation }) {
             />
           </View>
 
-          <View
-            style={{
-              marginTop: 32,
-            }}
-          >
-            <UnderLinedButton
-              text={'Change Passwords'}
-              onPress={() => navigation.navigate('ChangePassword')}
-            />
-          </View>
+          {userData?.signUpType === 'google' ? null : (
+            <View
+              style={{
+                marginTop: 32,
+              }}
+            >
+              <UnderLinedButton
+                text={'Change Passwords'}
+                onPress={() => navigation.navigate('ChangePassword')}
+              />
+            </View>
+          )}
           <View
             style={{
               marginTop: 32,
@@ -157,7 +173,7 @@ export default function Account({ navigation }) {
         <CurvedButton
           text={'Edit'}
           onPress={() => {
-            navigation.navigate('EditProfile');
+            navigation.navigate('EditProfile', { id: userData?.id });
           }}
           moreStyles={styles.button}
           outline={true}

@@ -12,10 +12,16 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useRef } from 'react';
 import { useState } from 'react';
 import { bottomPopUpMessage } from '../../helpers/helpers';
+import { registerWithGoogle } from '../../../FirebaseFireStoreDB';
+import { setUserid, signIn } from '../../store/Slices/auth';
+import { useDispatch } from 'react-redux';
+import uuid from 'react-native-uuid';
 
 export default function SignUp({ navigation, route }) {
   const method = route.params?.method;
   const userData = route.params?.userData;
+
+  const dispatch = useDispatch();
 
   const [firstName, setFirstName] = useState(userData?.given_name || '');
   const [lastName, setLastName] = useState(userData?.family_name || '');
@@ -39,6 +45,22 @@ export default function SignUp({ navigation, route }) {
     if (!country) {
       return bottomPopUpMessage('Country is required');
     }
+
+    const data = {
+      email: userData?.email,
+      firstName: userData?.given_name,
+      lastName: userData?.family_name,
+      phone: phone,
+      country: country,
+      city: country,
+      signUpType: 'google',
+      createdAt: new Date(),
+      id: uuid.v4(),
+    };
+
+    await registerWithGoogle(data);
+    dispatch(signIn());
+    dispatch(setUserid(data?.id));
   };
 
   return (
@@ -88,11 +110,10 @@ export default function SignUp({ navigation, route }) {
         <MyVcBaseTextField
           headerText={'Email'}
           value={email}
+          editable={method === 'google' ? false : true}
           onChangeText={(text) => setEmail(text)}
           placeholder={'Enter Email'}
-          moreViewStyles={{
-            width: SCREEN_WIDTH - 32,
-          }}
+          moreViewStyles={styles.inputText}
         />
         <MyVcBaseTextField
           headerText={'Phone Number'}
