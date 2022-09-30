@@ -7,6 +7,7 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import axios from 'axios';
+import { retriveTestDataFromFireStore } from '../../../FirebaseFireStoreDB';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -63,7 +64,9 @@ export default function Home({ navigation }) {
     }
   };
 
-  useEffect(() => {});
+  useEffect(() => {
+    retriveTestDataFromFireStore();
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
