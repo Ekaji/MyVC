@@ -1,4 +1,5 @@
 import { app } from './Firebase';
+import { USER_PATH } from './src/helpers/firebaseHelpers';
 import {
   getFirestore,
   collection,
@@ -9,6 +10,7 @@ import {
   updateDoc,
   where,
   query,
+  getDoc,
 } from 'firebase/firestore';
 
 const db = getFirestore(app);
