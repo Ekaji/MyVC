@@ -1,12 +1,14 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
+import 'firebase/auth';
+
 import {
   developmentFirebaseConfig,
   productionFirebaseConfig,
-} from "./FirebaseConfig";
+} from './FirebaseConfig';
 
-const env = "dev";
+const env = 'dev';
 
 export const app =
-  env === "dev"
+  env === 'dev'
     ? initializeApp(developmentFirebaseConfig)
     : initializeApp(productionFirebaseConfig);

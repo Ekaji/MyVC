@@ -54,6 +54,21 @@ export const retriveTestDataFromFireStore = async () => {
   }
 };
 
+export const updateUserProfile = async (userId, data) => {
+  try {
+    const path = USER_PATH + '/' + userId;
+    const userdocRef = doc(db, path);
+    const userdocSnap = await updateDoc(userdocRef, data);
+    if (userdocSnap) {
+      const message = 'Data updated successfully';
+      bottomPopUpMessage(message);
+    } else {
+      const message = 'Data does not exist';
+      bottomPopUpMessage(message);
+    }
+  } catch (error) {}
+};
+
 export const postTestData2ToFireStore = async () => {
   try {
     const path = 'Wardrobe/' + testUserData.id;

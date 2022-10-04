@@ -7,16 +7,14 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import axios from 'axios';
-import { retriveTestDataFromFireStore } from '../../../FirebaseFireStoreDB';
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function Home({ navigation }) {
-
   const testFirebase = async () => {
     const data = {
-      name: "test",
-      age: "test",
+      name: 'test',
+      age: 'test',
     };
     await postTestDataToFireStore(data);
   };
@@ -25,16 +23,17 @@ export default function Home({ navigation }) {
     navigation.navigate('SignUp');
   };
 
-  const [request, response, googlePromptAsync] = Google.useAuthRequest({
+  const [request, fullResult, googlePromptAsync] = Google.useAuthRequest({
     expoClientId:
       '658461813677-e40dlenf6j6jnj9kk3kombr711h71o45.apps.googleusercontent.com',
     iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
     androidClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-    webClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+    scopes: ['profile', 'email'],
   });
 
   const googleLogin = async () => {
     const response = await googlePromptAsync();
+
     if (response?.type === 'success') {
       axios
         .get('https://www.googleapis.com/userinfo/v2/me', {
@@ -103,7 +102,6 @@ export default function Home({ navigation }) {
           text={'Google'}
           onPress={() => {
             googleLogin();
-         
           }}
           imageUrl={ImageSet.google_icon}
           moreStyles={styles.button}

@@ -9,7 +9,6 @@ import {
 import { H1, H3, SmallLightGrayText } from '../../components/Texts';
 import { Colors, ImageSet, SCREEN_WIDTH } from '../../config/Constant';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useRef } from 'react';
 import { useState } from 'react';
 import { bottomPopUpMessage } from '../../helpers/helpers';
 import { registerWithGoogle } from '../../../FirebaseFireStoreDB';

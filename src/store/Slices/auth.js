@@ -22,6 +22,9 @@ export const authSlice = createSlice({
     setUserid: (state, data) => {
       state.id = data?.payload;
     },
+    fetchUserProfile: (state, data) => {
+      state.userProfile = data?.payload;
+    },
     isUserSignedIn: (state) => {
       return state.isAuthenticated;
     },
@@ -40,6 +43,7 @@ const updateUserStatus = async (userIsAuthenticated) => {
   await AsyncStorage.setItem(USER_TOKEN, userIsAuthenticated);
 };
 // Action creators are generated for each case reducer function
-export const { signIn, signOut, isUserSignedIn, setUserid } = authSlice.actions;
+export const { signIn, signOut, isUserSignedIn, setUserid, fetchUserProfile } =
+  authSlice.actions;
 
 export default authSlice.reducer;

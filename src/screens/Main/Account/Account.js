@@ -10,16 +10,21 @@ import { Colors } from '../../../config/Constant';
 import { H1, H3, SmallLightGrayText } from '../../../components/Texts';
 import { bottomPopUpMessage } from '../../../helpers/helpers';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from '../../../../FirebaseFireStoreDB';
+import { fetchUserProfile } from '../../../store/Slices/auth';
 
 export default function Account({ navigation }) {
+  const dispatch = useDispatch();
+
   const userId = useSelector((state) => state.auth?.id);
-  const [userData, setUserData] = useState({});
+  const userProfile = useSelector((state) => state.auth?.userProfile);
+
+  console.log(userProfile, 'userProfile');
 
   const getUser = async () => {
     const res = await fetchUser(userId);
-    setUserData(res);
+    dispatch(fetchUserProfile(res));
   };
 
   useEffect(() => {
@@ -67,7 +72,8 @@ export default function Account({ navigation }) {
       >
         <H1
           content={
-            `${userData?.firstName} ${userData?.lastName}` || 'Reed Richards'
+            `${userProfile?.firstName} ${userProfile?.lastName}` ||
+            'Reed Richards'
           }
           moreStyles={{ marginTop: 32 }}
         />
@@ -85,7 +91,7 @@ export default function Account({ navigation }) {
                 marginTop: 32,
               }}
             />
-            <SmallLightGrayText content={userData?.email || 'test'} />
+            <SmallLightGrayText content={userProfile?.email || 'test'} />
           </View>
 
           <View
@@ -100,7 +106,7 @@ export default function Account({ navigation }) {
                 fontWeight: 'bold',
               }}
             />
-            <SmallLightGrayText content={userData?.phone || 'test'} />
+            <SmallLightGrayText content={userProfile?.phone || 'test'} />
           </View>
 
           <View
@@ -115,7 +121,7 @@ export default function Account({ navigation }) {
                 fontWeight: 'bold',
               }}
             />
-            <SmallLightGrayText content={userData?.country || 'test'} />
+            <SmallLightGrayText content={userProfile?.country || 'test'} />
           </View>
 
           <View
@@ -140,7 +146,7 @@ export default function Account({ navigation }) {
             />
           </View>
 
-          {userData?.signUpType === 'google' ? null : (
+          {userProfile?.signUpType === 'google' ? null : (
             <View
               style={{
                 marginTop: 32,
@@ -178,7 +184,10 @@ export default function Account({ navigation }) {
         <CurvedButton
           text={'Edit'}
           onPress={() => {
-            navigation.navigate('EditProfile', { id: userData?.id });
+            navigation.navigate('EditProfile', {
+              id: userProfile?.id,
+              userProfile,
+            });
           }}
           moreStyles={styles.button}
           outline={true}
