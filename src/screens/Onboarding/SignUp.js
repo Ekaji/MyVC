@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  Image,
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { CurvedButton } from '../../components/Buttons';
 import {
   MyVcBaseTextField,
@@ -17,10 +9,24 @@ import {
 import { H1, H3, SmallLightGrayText } from '../../components/Texts';
 import { Colors, ImageSet, SCREEN_WIDTH } from '../../config/Constant';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useRef } from 'react';
 import { useState } from 'react';
+import { bottomPopUpMessage } from '../../helpers/helpers';
+import { registerWithGoogle } from '../../../FirebaseFireStoreDB';
+import { setUserid, signIn } from '../../store/Slices/auth';
+import { useDispatch } from 'react-redux';
+import uuid from 'react-native-uuid';
 
-export default function SignUp({ navigation }) {
+export default function SignUp({ navigation, route }) {
+  const method = route.params?.method;
+  const userData = route.params?.userData;
+
+  const dispatch = useDispatch();
+
+  const [firstName, setFirstName] = useState(userData?.given_name || '');
+  const [lastName, setLastName] = useState(userData?.family_name || '');
+  const [email, setEmail] = useState(userData?.email || '');
+  const [phone, setPhone] = useState('');
+
   const goToPhoneNumberConfirmation = () => {
     navigation.navigate('AuthenticationConfirmation');
   };
@@ -31,7 +37,30 @@ export default function SignUp({ navigation }) {
     setCountry(selectedCountry);
   };
 
-  const goToMain = () => {};
+  const signInWithGoogle = async () => {
+    if (!phone) {
+      return bottomPopUpMessage('Phone is required');
+    }
+    if (!country) {
+      return bottomPopUpMessage('Country is required');
+    }
+
+    const data = {
+      email: userData?.email,
+      firstName: userData?.given_name,
+      lastName: userData?.family_name,
+      phone: phone,
+      country: country,
+      city: country,
+      signUpType: 'google',
+      createdAt: new Date(),
+      id: uuid.v4(),
+    };
+
+    await registerWithGoogle(data);
+    dispatch(signIn());
+    dispatch(setUserid(data?.email));
+  };
 
   return (
     <View style={styles.container}>
@@ -44,7 +73,7 @@ export default function SignUp({ navigation }) {
         />
         <H3
           content={
-            'Automate your every day warddrobe and always be ready for any event!'
+            'Automate your every day wardrobe and always be ready for any event!'
           }
           moreStyles={{
             marginTop: 16,
@@ -65,23 +94,29 @@ export default function SignUp({ navigation }) {
       >
         <MyVcBaseTextField
           headerText={'First Name'}
+          value={firstName}
+          onChangeText={(text) => setFirstName(text)}
           placeholder={'Enter First Name'}
           moreViewStyles={styles.inputText}
         />
         <MyVcBaseTextField
           headerText={'Last Name'}
+          value={lastName}
+          onChangeText={(text) => setLastName(text)}
           placeholder={'Enter Last Name'}
           moreViewStyles={styles.inputText}
         />
         <MyVcBaseTextField
           headerText={'Email'}
+          value={email}
+          editable={method === 'google' ? false : true}
+          onChangeText={(text) => setEmail(text)}
           placeholder={'Enter Email'}
-          moreViewStyles={{
-            width: SCREEN_WIDTH - 32,
-          }}
+          moreViewStyles={styles.inputText}
         />
         <MyVcBaseTextField
           headerText={'Phone Number'}
+          onChangeText={(text) => setPhone(text)}
           placeholder={'Enter Phone Number'}
           moreViewStyles={styles.inputText}
         />
@@ -90,27 +125,33 @@ export default function SignUp({ navigation }) {
           onComplete={onComplete}
           moreViewStyles={styles.inputText}
         />
-        <MyVcIconTextField
-          iconImageName={ImageSet.eyeClose}
-          headerText={'Password'}
-          placeholder={'Enter Password'}
-          onTapIcon={() => console.log('tapping icon')}
-          moreViewStyles={styles.inputText}
-          secureTextEntry={true}
-        />
-        <MyVcIconTextField
-          iconImageName={ImageSet.eyeClose}
-          headerText={'Confirm Password'}
-          placeholder={'Enter Password'}
-          onTapIcon={() => console.log('tapping icon')}
-          moreViewStyles={styles.inputText}
-          secureTextEntry={true}
-        />
+        {method === 'google' ? null : (
+          <>
+            <MyVcIconTextField
+              iconImageName={ImageSet.eyeClose}
+              headerText={'Password'}
+              placeholder={'Enter Password'}
+              onTapIcon={() => console.log('tapping icon')}
+              moreViewStyles={styles.inputText}
+              secureTextEntry={true}
+            />
+            <MyVcIconTextField
+              iconImageName={ImageSet.eyeClose}
+              headerText={'Confirm Password'}
+              placeholder={'Enter Password'}
+              onTapIcon={() => console.log('tapping icon')}
+              moreViewStyles={styles.inputText}
+              secureTextEntry={true}
+            />
+          </>
+        )}
       </KeyboardAwareScrollView>
       <CurvedButton
-        text={'Next'}
+        text={method === 'google' ? 'Sign in' : 'Next'}
         onPress={() => {
-          goToPhoneNumberConfirmation();
+          method === 'google'
+            ? signInWithGoogle()
+            : goToPhoneNumberConfirmation();
         }}
         moreStyles={styles.button}
       />

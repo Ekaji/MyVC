@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../../components/Header';
 import {
   BackButton,
@@ -10,8 +10,31 @@ import { Colors } from '../../../config/Constant';
 import { H1, H3, SmallLightGrayText } from '../../../components/Texts';
 import { bottomPopUpMessage } from '../../../helpers/helpers';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteUser, fetchUser } from '../../../../FirebaseFireStoreDB';
+import { fetchUserProfile, signOut } from '../../../store/Slices/auth';
 
 export default function Account({ navigation }) {
+  const dispatch = useDispatch();
+
+  const userId = useSelector((state) => state.auth?.id);
+  const userProfile = useSelector((state) => state.auth?.userProfile);
+
+  const getUser = async () => {
+    const res = await fetchUser(userId);
+    dispatch(fetchUserProfile(res));
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const removeAccount = async () => {
+    const res = await deleteUser(userId);
+    dispatch(signOut());
+    navigation.navigate('Home');
+  };
+
   return (
     <View style={styles.container}>
       <Header
@@ -51,7 +74,13 @@ export default function Account({ navigation }) {
           marginLeft: 16,
         }}
       >
-        <H1 content={'Reed Richards'} moreStyles={{ marginTop: 32 }} />
+        <H1
+          content={
+            `${userProfile?.firstName} ${userProfile?.lastName}` ||
+            'Reed Richards'
+          }
+          moreStyles={{ marginTop: 32 }}
+        />
         <ScrollView>
           <View
             style={{
@@ -66,7 +95,7 @@ export default function Account({ navigation }) {
                 marginTop: 32,
               }}
             />
-            <SmallLightGrayText content={'test'} />
+            <SmallLightGrayText content={userProfile?.email || 'test'} />
           </View>
 
           <View
@@ -81,7 +110,7 @@ export default function Account({ navigation }) {
                 fontWeight: 'bold',
               }}
             />
-            <SmallLightGrayText content={'test'} />
+            <SmallLightGrayText content={userProfile?.phone || 'test'} />
           </View>
 
           <View
@@ -96,7 +125,7 @@ export default function Account({ navigation }) {
                 fontWeight: 'bold',
               }}
             />
-            <SmallLightGrayText content={'test'} />
+            <SmallLightGrayText content={userProfile?.country || 'test'} />
           </View>
 
           <View
@@ -121,16 +150,18 @@ export default function Account({ navigation }) {
             />
           </View>
 
-          <View
-            style={{
-              marginTop: 32,
-            }}
-          >
-            <UnderLinedButton
-              text={'Change Passwords'}
-              onPress={() => navigation.navigate('ChangePassword')}
-            />
-          </View>
+          {userProfile?.signUpType === 'google' ? null : (
+            <View
+              style={{
+                marginTop: 32,
+              }}
+            >
+              <UnderLinedButton
+                text={'Change Passwords'}
+                onPress={() => navigation.navigate('ChangePassword')}
+              />
+            </View>
+          )}
           <View
             style={{
               marginTop: 32,
@@ -141,7 +172,7 @@ export default function Account({ navigation }) {
               textStyle={{
                 color: Colors.red,
               }}
-              onPress={() => bottomPopUpMessage('BACKEND NOT IMPLEMENTED')}
+              onPress={() => removeAccount()}
             />
           </View>
         </ScrollView>
@@ -157,7 +188,10 @@ export default function Account({ navigation }) {
         <CurvedButton
           text={'Edit'}
           onPress={() => {
-            navigation.navigate('EditProfile');
+            navigation.navigate('EditProfile', {
+              id: userProfile?.id,
+              userProfile,
+            });
           }}
           moreStyles={styles.button}
           outline={true}

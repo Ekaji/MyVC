@@ -5,12 +5,13 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-} from "react-native";
-import React from "react";
+  ActivityIndicator,
+} from 'react-native';
+import React from 'react';
 
-import { Colors, ImageSet } from "../config/Constant";
-import { H3, RegularBoldWhiteText } from "../components/Texts";
-import { UnderLinedText } from "../components/Texts";
+import { Colors, ImageSet } from '../config/Constant';
+import { H3, RegularBoldWhiteText } from '../components/Texts';
+import { UnderLinedText } from '../components/Texts';
 
 export function ModalButton({ text, onPress }) {
   return (
@@ -18,17 +19,20 @@ export function ModalButton({ text, onPress }) {
       style={{
         backgroundColor: Colors.white,
         height: 60,
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
       onPress={onPress}
     >
       <Text
-      style = {{
-        color: Colors.black,
-        fontWeight: "bold",
-        fontSize: 16,
-      }}>{text}</Text>
+        style={{
+          color: Colors.black,
+          fontWeight: 'bold',
+          fontSize: 16,
+        }}
+      >
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -75,7 +79,14 @@ export function UnderLinedButton({ text, onPress, textStyle, moreStyles }) {
   );
 }
 
-export function CurvedButton({ onPress, imageUrl, outline, text, moreStyles }) {
+export function CurvedButton({
+  onPress,
+  imageUrl,
+  outline,
+  text,
+  moreStyles,
+  loading,
+}) {
   const extraViewStyle = outline
     ? {
         borderWidth: 1,
@@ -91,23 +102,27 @@ export function CurvedButton({ onPress, imageUrl, outline, text, moreStyles }) {
         onPress={onPress}
         style={{ ...styles.curvedButton, ...extraViewStyle, ...moreStyles }}
       >
-        <View style={{ flexDirection: "row" }}>
-          {imageUrl && (
-            <Image
-              source={imageUrl}
-              style={[
-                styles.curvedButtonImage,
-                { marginRight: 8, marginLeft: 8 },
-              ]}
-            />
-          )}
-          {text && (
-            <RegularBoldWhiteText
-              content={text}
-              moreStyles={{ fontSize: 12, ...extraTextstyle }}
-            />
-          )}
-        </View>
+        {loading ? (
+          <ActivityIndicator size={'small'} color={'white'} />
+        ) : (
+          <View style={{ flexDirection: 'row' }}>
+            {imageUrl && (
+              <Image
+                source={imageUrl}
+                style={[
+                  styles.curvedButtonImage,
+                  { marginRight: 8, marginLeft: 8 },
+                ]}
+              />
+            )}
+            {text && (
+              <RegularBoldWhiteText
+                content={text}
+                moreStyles={{ fontSize: 12, ...extraTextstyle }}
+              />
+            )}
+          </View>
+        )}
       </TouchableOpacity>
     </>
   );
@@ -227,7 +242,7 @@ export function CircleBorderCameraButton({ onPress, text }) {
       moreStyles={{
         backgroundColor: Colors.white,
         borderWidth: 0.5,
-        shadowColor: "#171717",
+        shadowColor: '#171717',
         shadowOffset: null,
         shadowOpacity: null,
         shadowRadius: null,
@@ -240,8 +255,8 @@ function ParentCircleButton({ text, onPress, imageUrl, size, moreStyles }) {
   return (
     <View
       style={{
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <TouchableOpacity
@@ -264,13 +279,49 @@ function ParentCircleButton({ text, onPress, imageUrl, size, moreStyles }) {
         <H3
           content={text}
           moreStyles={{
-            textAlign: "center",
+            textAlign: 'center',
             color: Colors.black,
-            fontWeight: "bold",
+            fontWeight: 'bold',
             fontSize: 12,
           }}
         />
       )}
+    </View>
+  );
+}
+
+export function LongButton({
+  loading,
+  title,
+  containerStyle,
+  isNotBottom,
+  titleStyle,
+  buttonStyle,
+  onPress,
+  disabled,
+}) {
+  return (
+    <View style={!isNotBottom && [styles.containerStyle, containerStyle]}>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        onPress={onPress}
+        disabled={disabled}
+        style={[
+          styles.buttonStyle,
+          buttonStyle,
+          disabled && styles.disabledStyle,
+        ]}
+      >
+        {loading ? (
+          <ActivityIndicator size={'small'} color={Colors.white} />
+        ) : (
+          <Text
+            style={[styles.title, titleStyle, disabled && styles.disabledStyle]}
+          >
+            {title}
+          </Text>
+        )}
+      </TouchableOpacity>
     </View>
   );
 }
@@ -282,9 +333,9 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     backgroundColor: Colors.black,
-    alignContent: "center",
-    justifyContent: "center",
-    shadowColor: "#171717",
+    alignContent: 'center',
+    justifyContent: 'center',
+    shadowColor: '#171717',
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
@@ -292,15 +343,15 @@ const styles = StyleSheet.create({
   circleButtonImage: {
     width: 24,
     height: 24,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   curvedButton: {
     height: 50,
     width: 300,
     borderRadius: 25,
     backgroundColor: Colors.black,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   curvedButtonImage: {
     width: 24,
@@ -313,5 +364,32 @@ const styles = StyleSheet.create({
   backButtonImage: {
     width: 24,
     height: 24,
+  },
+  containerStyle: {
+    position: 'absolute',
+    bottom: 40,
+    width: '100%',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  title: {
+    color: Colors.white,
+    fontSize: 18,
+    fontWeight: '600',
+    alignSelf: 'center',
+    textAlign: 'center',
+  },
+  buttonStyle: {
+    height: 64,
+    width: '90%',
+    backgroundColor: Colors.black,
+    borderRadius: 999,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  disabledStyle: {
+    backgroundColor: '#A4D7FF',
+    color: Colors.lightGray,
   },
 });

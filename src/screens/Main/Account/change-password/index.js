@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+import { LongButton } from '../../../../components/Buttons';
+import { HeaderBar } from '../../../../components/Header';
 import { MyVcBaseTextField } from '../../../../components/TextFields';
 import { H1 } from '../../../../components/Texts';
 import { SCREEN_WIDTH } from '../../../../config/Constant';
-import HeaderBar from '../../../../shared/header';
-import LongButton from '../../../../shared/long-button';
 import { styles } from './style';
 
 const ChangePassword = ({ navigation }) => {
