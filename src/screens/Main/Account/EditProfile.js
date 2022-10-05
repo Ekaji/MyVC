@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Colors, SCREEN_WIDTH } from '../../../config/Constant';
 import {
   MyVcBaseTextField,
@@ -28,6 +28,10 @@ export default function EditProfile({ navigation, route }) {
   const onComplete = (selectedCountry) => {
     setCountry(selectedCountry);
   };
+
+  useEffect(() => {
+    onComplete(userProfile?.country);
+  }, []);
 
   const updateProfile = async () => {
     const data = {
@@ -80,7 +84,7 @@ export default function EditProfile({ navigation, route }) {
         <MyVCDropDown
           moreViewStyles={styles.textInput}
           headerText={'Your Country'}
-          value={country}
+          value={userProfile?.country || country}
           onComplete={onComplete}
         />
       </View>

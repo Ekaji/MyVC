@@ -11,6 +11,7 @@ import {
   where,
   query,
   getDoc,
+  deleteDoc,
 } from 'firebase/firestore';
 import { bottomPopUpMessage } from './src/helpers/helpers';
 
@@ -89,7 +90,7 @@ export const postTestData2ToFireStore = async () => {
 
 export const registerWithGoogle = async (data) => {
   try {
-    const path = USER_PATH + '/' + data.id;
+    const path = USER_PATH + '/' + data.email;
     const userdocRef = doc(db, path);
     const docRef = await setDoc(userdocRef, data);
     const message = 'Data is sent to firestore with id';
@@ -99,6 +100,24 @@ export const registerWithGoogle = async (data) => {
     const message = 'Error while sending data to firestore: ' + error.message;
     bottomPopUpMessage(message);
     return null;
+  }
+};
+
+export const loginWithGoogle = async (email) => {
+  try {
+    const path = USER_PATH + '/' + email;
+    const userdocRef = doc(db, path);
+    const userdocSnap = await getDoc(userdocRef);
+    if (userdocSnap.exists()) {
+      const message = 'Logging in user with google';
+      bottomPopUpMessage(message);
+      return userdocSnap.data();
+    } else {
+      const message = 'Data does not exist';
+      bottomPopUpMessage(message);
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -115,6 +134,25 @@ export const fetchUser = async (userId) => {
       const message = 'Data does not exist';
       bottomPopUpMessage(message);
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteUser = async (userId) => {
+  try {
+    const path = USER_PATH + '/' + userId;
+    const userdocRef = doc(db, path);
+    deleteDoc(userdocRef)
+      .then(() => {
+        const message = 'Data is available in firestore ';
+        bottomPopUpMessage(message);
+        return true;
+      })
+      .catch(() => {
+        const message = 'Data does not exist';
+        bottomPopUpMessage(message);
+      });
   } catch (error) {
     console.log(error);
   }

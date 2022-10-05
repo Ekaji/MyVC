@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import React from 'react';
 
@@ -78,7 +79,14 @@ export function UnderLinedButton({ text, onPress, textStyle, moreStyles }) {
   );
 }
 
-export function CurvedButton({ onPress, imageUrl, outline, text, moreStyles }) {
+export function CurvedButton({
+  onPress,
+  imageUrl,
+  outline,
+  text,
+  moreStyles,
+  loading,
+}) {
   const extraViewStyle = outline
     ? {
         borderWidth: 1,
@@ -94,23 +102,27 @@ export function CurvedButton({ onPress, imageUrl, outline, text, moreStyles }) {
         onPress={onPress}
         style={{ ...styles.curvedButton, ...extraViewStyle, ...moreStyles }}
       >
-        <View style={{ flexDirection: 'row' }}>
-          {imageUrl && (
-            <Image
-              source={imageUrl}
-              style={[
-                styles.curvedButtonImage,
-                { marginRight: 8, marginLeft: 8 },
-              ]}
-            />
-          )}
-          {text && (
-            <RegularBoldWhiteText
-              content={text}
-              moreStyles={{ fontSize: 12, ...extraTextstyle }}
-            />
-          )}
-        </View>
+        {loading ? (
+          <ActivityIndicator size={'small'} color={'white'} />
+        ) : (
+          <View style={{ flexDirection: 'row' }}>
+            {imageUrl && (
+              <Image
+                source={imageUrl}
+                style={[
+                  styles.curvedButtonImage,
+                  { marginRight: 8, marginLeft: 8 },
+                ]}
+              />
+            )}
+            {text && (
+              <RegularBoldWhiteText
+                content={text}
+                moreStyles={{ fontSize: 12, ...extraTextstyle }}
+              />
+            )}
+          </View>
+        )}
       </TouchableOpacity>
     </>
   );

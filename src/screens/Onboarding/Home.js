@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { CurvedButton } from '../../components/Buttons';
 import { H1, H3, SmallLightGrayText } from '../../components/Texts';
@@ -7,21 +7,20 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import axios from 'axios';
+import { loginWithGoogle } from '../../../FirebaseFireStoreDB';
+import { useDispatch } from 'react-redux';
+import { setUserid, signIn } from '../../store/Slices/auth';
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function Home({ navigation }) {
-  const testFirebase = async () => {
-    const data = {
-      name: 'test',
-      age: 'test',
-    };
-    await postTestDataToFireStore(data);
-  };
-
   const goToSignUp = () => {
     navigation.navigate('SignUp');
   };
+
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const [request, fullResult, googlePromptAsync] = Google.useAuthRequest({
     expoClientId:
@@ -35,23 +34,34 @@ export default function Home({ navigation }) {
     const response = await googlePromptAsync();
 
     if (response?.type === 'success') {
-      axios
-        .get('https://www.googleapis.com/userinfo/v2/me', {
-          headers: {
-            Authorization: 'Bearer ' + response?.authentication?.accessToken,
-          },
-        })
-        .then((response) => {
-          if (response.data) {
-            navigation.navigate('SignUp', {
-              method: 'google',
-              userData: response.data,
-            });
-          }
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
+      setLoading(true);
+
+      const options = {
+        headers: {
+          Authorization: 'Bearer ' + response?.authentication?.accessToken,
+        },
+      };
+
+      const getUserProfile = await axios.get(
+        'https://www.googleapis.com/userinfo/v2/me',
+        options
+      );
+
+      if (getUserProfile) {
+        const userData = getUserProfile.data;
+
+        const doesUserExist = await loginWithGoogle(userData?.email);
+        if (doesUserExist) {
+          dispatch(signIn());
+          dispatch(setUserid(userData?.email));
+        } else {
+          navigation.navigate('SignUp', {
+            method: 'google',
+            userData,
+          });
+        }
+        setLoading(false);
+      }
     }
   };
 
@@ -103,6 +113,7 @@ export default function Home({ navigation }) {
           onPress={() => {
             googleLogin();
           }}
+          loading={loading}
           imageUrl={ImageSet.google_icon}
           moreStyles={styles.button}
         />

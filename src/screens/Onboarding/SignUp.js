@@ -59,7 +59,7 @@ export default function SignUp({ navigation, route }) {
 
     await registerWithGoogle(data);
     dispatch(signIn());
-    dispatch(setUserid(data?.id));
+    dispatch(setUserid(data?.email));
   };
 
   return (

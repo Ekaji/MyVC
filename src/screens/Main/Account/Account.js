@@ -11,16 +11,14 @@ import { H1, H3, SmallLightGrayText } from '../../../components/Texts';
 import { bottomPopUpMessage } from '../../../helpers/helpers';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUser } from '../../../../FirebaseFireStoreDB';
-import { fetchUserProfile } from '../../../store/Slices/auth';
+import { deleteUser, fetchUser } from '../../../../FirebaseFireStoreDB';
+import { fetchUserProfile, signOut } from '../../../store/Slices/auth';
 
 export default function Account({ navigation }) {
   const dispatch = useDispatch();
 
   const userId = useSelector((state) => state.auth?.id);
   const userProfile = useSelector((state) => state.auth?.userProfile);
-
-  console.log(userProfile, 'userProfile');
 
   const getUser = async () => {
     const res = await fetchUser(userId);
@@ -30,6 +28,12 @@ export default function Account({ navigation }) {
   useEffect(() => {
     getUser();
   }, []);
+
+  const removeAccount = async () => {
+    const res = await deleteUser(userId);
+    dispatch(signOut());
+    navigation.navigate('Home');
+  };
 
   return (
     <View style={styles.container}>
@@ -168,7 +172,7 @@ export default function Account({ navigation }) {
               textStyle={{
                 color: Colors.red,
               }}
-              onPress={() => bottomPopUpMessage('BACKEND NOT IMPLEMENTED')}
+              onPress={() => removeAccount()}
             />
           </View>
         </ScrollView>
